@@ -3,14 +3,98 @@
 
 generator client {
     provider = "prisma-client-js"
+    previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = "file:./db.sqlite"
-    // url      = env("DATABASE_URL")
+    provider = "mysql"
+    // url      = "file:./db.sqlite"
+    url      = env("DATABASE_URL")
+    referentialIntegrity = "prisma"
 }
 
-model Example {
-    id String @id @default(cuid())
+model Users {
+  id        String      @id @unique @default(cuid())
+  fullName  String
+  userName  String
+  email     String      @unique
+  password  String
+  role      Role        @default(CLIENT)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Likes     Likes[]
+  Musics    Musics[]
+  PlayLists PlayLists[]
+}
+
+model Likes {
+  id       String @id @unique @default(cuid())
+  musicId  Musics @relation(fields: [musicsId], references: [id])
+  userId   Users  @relation(fields: [usersId], references: [id])
+  musicsId String
+  usersId  String
+}
+
+model Musics {
+  id           String         @id @unique @default(cuid())
+  title        String
+  year         DateTime
+  musicLink    String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  userId       Users          @relation(fields: [usersId], references: [id])
+  Likes        Likes[]
+  usersId      String
+  PlayListItem PlayListItem[]
+  SingerItem   SingerItem[]
+  GenreItem    GenreItem[]
+}
+
+model PlayLists {
+  id           String         @id @unique @default(cuid())
+  name         String
+  userId       Users          @relation(fields: [usersId], references: [id])
+  usersId      String
+  PlayListItem PlayListItem[]
+}
+
+model Genres {
+  id        String      @id @unique @default(cuid())
+  name      String
+  GenreItem GenreItem[]
+}
+
+model Singers {
+  id         String       @id @unique @default(cuid())
+  name       String
+  SingerItem SingerItem[]
+}
+
+model PlayListItem {
+  id          String    @id @unique @default(cuid())
+  musicId     Musics    @relation(fields: [musicsId], references: [id])
+  playListId  PlayLists @relation(fields: [playListsId], references: [id])
+  musicsId    String
+  playListsId String
+}
+
+model SingerItem {
+  id        String  @id @unique @default(cuid())
+  singer    Singers @relation(fields: [singersId], references: [id])
+  musicId   Musics  @relation(fields: [musicsId], references: [id])
+  singersId String
+  musicsId  String
+}
+
+model GenreItem {
+  id       String @id @unique @default(cuid())
+  genreId  Genres @relation(fields: [genresId], references: [id])
+  musicId  Musics @relation(fields: [musicsId], references: [id])
+  genresId String
+  musicsId String
+}
+
+enum Role {
+  ADMIN
+  CLIENT
 }

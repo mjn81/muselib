@@ -6,6 +6,6 @@ import { userRouter } from './user.router';
 
 export const appRouter = createRouter()
 	.transformer(superjson)
-	.merge('example.', userRouter);
+	.merge('user.', userRouter);
 
 export type AppRouter = typeof appRouter;
