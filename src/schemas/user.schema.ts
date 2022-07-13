@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ROLES } from '../constants';
+import { ROLES } from 'constants/index';
 
 
 export const RegisterInputSchema = z.object({
@@ -21,3 +21,10 @@ export const UserOutputSchema = z.object({
 })
 
 //adding image profile handler (phase 2)
+
+export const ProfileInputSchema = z.object({
+	fullName: z.string(),
+	userName: z.string(),
+	email: z.string().email(),
+	role: z.enum(ROLES),
+});
