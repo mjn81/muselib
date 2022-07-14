@@ -1,5 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useValidForm } from "hooks";
 import { LoginInput, LoginInputForm } from "schemas";
 import { trpc } from "utils/trpc";
 
@@ -10,13 +9,9 @@ const Login = () => {
     },
   });
 
-  const { register, handleSubmit } = useForm<LoginInputForm>({
-    resolver: zodResolver(LoginInput),
-  });
+  const submit = (data: LoginInputForm) => mutate(data);
+  const { register, handleSubmit, onSubmit } = useValidForm(LoginInput, submit);
 
-  const onSubmit: SubmitHandler<LoginInputForm> = (data) => {
-    mutate(data);
-  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {error && error.message}

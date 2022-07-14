@@ -26,8 +26,8 @@ export const createContext = async (
       code: "BAD_REQUEST",
       message: MESSAGES["INVALID_TOKEN"],
     });
-  
-  const payload = getPayload(token_data , getEnv("JWT_SECRET"));
+
+  const payload = getPayload(token_data, getEnv("JWT_SECRET"));
   if (!payload)
     throw new trpc.TRPCError({
       code: "BAD_REQUEST",
