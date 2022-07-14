@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LoginInput, LoginInputForm } from "schemas";
 import { trpc } from "utils/trpc";
@@ -11,11 +10,6 @@ const Login = () => {
     },
   });
 
-  const { data } = trpc.useQuery(["user.me"], {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
   const { register, handleSubmit } = useForm<LoginInputForm>({
     resolver: zodResolver(LoginInput),
   });

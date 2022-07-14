@@ -4,6 +4,7 @@ import * as trpcNext from "@trpc/server/adapters/next";
 import { MESSAGES } from "constants/index";
 
 import { prisma } from "server/db/client";
+import { getEnv } from "utils/env";
 import { getPayload } from "utils/jwt";
 
 export const createContext = async (
@@ -25,7 +26,8 @@ export const createContext = async (
       code: "BAD_REQUEST",
       message: MESSAGES["INVALID_TOKEN"],
     });
-  const payload = getPayload(token_data);
+  
+  const payload = getPayload(token_data , getEnv("JWT_SECRET"));
   if (!payload)
     throw new trpc.TRPCError({
       code: "BAD_REQUEST",
