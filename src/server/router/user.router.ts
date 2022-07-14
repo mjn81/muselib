@@ -1,7 +1,8 @@
+import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
-import { MESSAGES, ROLES } from "constants/index";
-import { LoginInputUser, RegisterInputSchema, UserOutputSchema } from "schemas";
+import { MESSAGES } from "constants/index";
+import { LoginInput, ProfileOutput, RegisterInput, UserOutput } from "schemas";
 import { getEnv } from "utils/env";
 import { encrypt, verify } from "utils/hash";
 import { sign } from "utils/jwt";
@@ -9,10 +10,10 @@ import { createRouter } from "./context";
 
 export const userRouter = createRouter()
   .mutation("login", {
-    input: LoginInputUser,
-    output: UserOutputSchema,
+    input: LoginInput,
+    output: UserOutput,
     resolve: async ({ input, ctx }) => {
-      const { email, pasword } = input;
+      const { email, password } = input;
 
       const user = await ctx.prisma.users.findUnique({
         where: {
@@ -25,13 +26,14 @@ export const userRouter = createRouter()
           message: MESSAGES["USER_NOT_FOUND"],
         });
 
-      const isValid = verify(pasword, user.password);
+      const isValid = await verify(password, user.password);
 
-      if (!isValid)
+      if (!isValid) {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: MESSAGES["USER_WRONG_PASSWORD"],
         });
+      }
 
       const token = sign(
         { email: user.email, id: user.id },
@@ -46,8 +48,8 @@ export const userRouter = createRouter()
     },
   })
   .mutation("register", {
-    input: RegisterInputSchema,
-    output: UserOutputSchema,
+    input: RegisterInput,
+    output: UserOutput,
     resolve: async ({ input, ctx }) => {
       const { fullName, userName, email, password } = input;
 
@@ -70,7 +72,7 @@ export const userRouter = createRouter()
           userName,
           email,
           password: hashedPassword,
-          role: ROLES[0],
+          role: Role.CLIENT,
         },
       });
 
@@ -83,6 +85,34 @@ export const userRouter = createRouter()
       return {
         userName: newUser.userName,
         token: token,
+      };
+    },
+  })
+  .query("me", {
+    output: ProfileOutput,
+    resolve: async ({ ctx }) => {
+      const payload = ctx.user;
+      if (!payload)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: MESSAGES["USER_NOT_AUTHENTICATED"],
+        });
+
+      const user = await ctx.prisma.users.findUnique({
+        where: {
+          id: payload.id,
+        },
+      });
+      if (!user)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: MESSAGES["USER_NOT_FOUND"],
+        });
+      return {
+        fullName: user.fullName,
+        userName: user.userName,
+        email: user.email,
+        role: user.role,
       };
     },
   });

@@ -32,18 +32,11 @@ export const createContext = async (
       message: MESSAGES["INVALID_TOKEN"],
     });
 
-  const user = await prisma.users.findUnique({
-    where: {
-      email: payload.email,
-      id: payload.id,
-    },
-  });
-
   return {
     req,
     res,
     prisma,
-    user,
+    user: payload,
   };
 };
 

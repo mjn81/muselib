@@ -1,5 +1,8 @@
 // src/pages/_app.tsx
 import { withTRPC } from "@trpc/next";
+import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
+import { loggerLink } from "@trpc/client/links/loggerLink";
+
 import type { AppRouter } from "../server/router";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
@@ -21,23 +24,33 @@ const getBaseUrl = () => {
 
 export default withTRPC<AppRouter>({
   config({ ctx }) {
-    /**
-     * If you want to use SSR, you need to use the server's full URL
-     * @link https://trpc.io/docs/ssr
-     */
     const url = `${getBaseUrl()}/api/trpc`;
 
+    const links = [
+      loggerLink(),
+      httpBatchLink({
+        url,
+        maxBatchSize: 10,
+      }),
+    ];
     return {
-      url,
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            staleTime: 10,
+          },
+        },
+      },
+      headers: () => {
+        return {
+          authorization:
+            "TOKEN eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1qam5uODFAZ21haWwuY29tIiwiaWQiOiJjbDVsZW90cG8wMDIwZ2VveHFtbnd3bmNuIiwiaWF0IjoxNjU3ODI4MDEzLCJleHAiOjE2NTgwODcyMTN9.mtkaF7fWj9QLLILIrMTqTDiykHuV_zWF7drmzHaQbTM",
+        };
+      },
+      links,
       transformer: superjson,
-      /**
-       * @link https://react-query.tanstack.com/reference/QueryClient
-       */
-      // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
     };
   },
-  /**
-   * @link https://trpc.io/docs/ssr
-   */
+
   ssr: false,
 })(MyApp);
