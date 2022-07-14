@@ -1,16 +1,49 @@
 // src/server/router/context.ts
 import * as trpc from "@trpc/server";
 import * as trpcNext from "@trpc/server/adapters/next";
-import { prisma } from "server/db/client";
+import { MESSAGES } from "constants/index";
 
-export const createContext = (opts?: trpcNext.CreateNextContextOptions) => {
+import { prisma } from "server/db/client";
+import { getPayload } from "utils/jwt";
+
+export const createContext = async (
+  opts?: trpcNext.CreateNextContextOptions
+) => {
   const req = opts?.req;
   const res = opts?.res;
+  const token = req?.headers.authorization;
+  if (!token)
+    return {
+      req,
+      res,
+      prisma,
+      user: undefined,
+    };
+  const token_data = token.split(" ")[1];
+  if (!token_data)
+    throw new trpc.TRPCError({
+      code: "BAD_REQUEST",
+      message: MESSAGES["INVALID_TOKEN"],
+    });
+  const payload = getPayload(token_data);
+  if (!payload)
+    throw new trpc.TRPCError({
+      code: "BAD_REQUEST",
+      message: MESSAGES["INVALID_TOKEN"],
+    });
+
+  const user = await prisma.users.findUnique({
+    where: {
+      email: payload.email,
+      id: payload.id,
+    },
+  });
 
   return {
     req,
     res,
     prisma,
+    user,
   };
 };
 

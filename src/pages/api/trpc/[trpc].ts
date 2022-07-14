@@ -10,15 +10,6 @@ export default createNextApiHandler({
   onError: ({ error }) => {
     if (error.code === "INTERNAL_SERVER_ERROR") {
       console.error("Internal server error:", error);
-      return {
-        status: 404,
-        body: {
-          error: {
-            code: "NOT_FOUND",
-            message: error.message,
-          },
-        },
-      };
     } else {
       console.error("Error:", error);
       return error;

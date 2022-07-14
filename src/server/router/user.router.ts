@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 
 import { MESSAGES, ROLES } from "constants/index";
 import { LoginInputUser, RegisterInputSchema, UserOutputSchema } from "schemas";
+import { getEnv } from "utils/env";
 import { encrypt, verify } from "utils/hash";
 import { sign } from "utils/jwt";
 import { createRouter } from "./context";
@@ -34,8 +35,8 @@ export const userRouter = createRouter()
 
       const token = sign(
         { email: user.email, id: user.id },
-        process.env.JWT_SECRET ?? "default",
-        process.env.EXPIRATION_TIME ?? "1h"
+        getEnv("JWT_SECRET"),
+        getEnv("JWT_EXPIRATION")
       );
 
       return {
@@ -75,8 +76,8 @@ export const userRouter = createRouter()
 
       const token = sign(
         { email: newUser.email, id: newUser.id },
-        process.env.JWT_SECRET ?? "default",
-        process.env.EXPIRATION_TIME ?? "1h"
+        getEnv("JWT_SECRET"),
+        getEnv("JWT_EXPIRATION")
       );
 
       return {
