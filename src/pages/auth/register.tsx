@@ -1,7 +1,6 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-import { RegisterInputForm, RegisterInput } from "schemas";
+import {RegisterForm} from "components";
+import { AuthLayout } from "layouts";
 import { trpc } from "utils/trpc";
 
 const Register = () => {
@@ -12,24 +11,11 @@ const Register = () => {
     },
   });
 
-  const { register, handleSubmit } = useForm<RegisterInputForm>({
-    resolver: zodResolver(RegisterInput),
-  });
-
-  const onSubmit: SubmitHandler<RegisterInputForm> = (data) => {
-    mutate(data);
-  };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" {...register("fullName")} />
-        <input type="text" {...register("userName")} />
-        <input type="email" {...register("email")} />
-        <input type="password" {...register("password")} />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <AuthLayout>
+      <RegisterForm submit={(data)=> mutate(data)} />
+    </AuthLayout>
   );
 };
 
