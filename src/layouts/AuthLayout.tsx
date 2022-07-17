@@ -1,11 +1,12 @@
-import React ,{FC} from "react"
+import React, { PropsWithChildren } from "react";
 
-interface Props {
-  children?:React.ReactNode | React.ReactNode[]
-}
-
-export const AuthLayout:FC<Props> = ({
-	children,
-}) => {
-	return <main>{children}</main>;
+export const AuthLayout = (props: PropsWithChildren) => {
+  const { children } = props;
+  return (
+    <main
+      className="bg-purple-700 w-screen h-screen relative"
+    >
+      {children}
+    </main>
+  );
 };
