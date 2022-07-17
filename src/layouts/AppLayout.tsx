@@ -1,6 +1,3 @@
-
 export const AppLayout = () => {
-  return (
-    <div>AppLayout</div>
-  )
-}
+  return <div>AppLayout</div>;
+};

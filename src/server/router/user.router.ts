@@ -2,7 +2,12 @@ import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
 import { MESSAGES } from "constants/index";
-import { LoginInput, ProfileOutput, RegisterInput, UserOutput } from "schemas";
+import {
+  LoginInput,
+  ProfileOutput,
+  RegisterInput,
+  UserOutput,
+} from "schemas";
 import { getEnv } from "utils/env";
 import { encrypt, verify } from "utils/hash";
 import { sign } from "utils/jwt";

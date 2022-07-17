@@ -8,7 +8,9 @@ export const RegisterInput = z.object({
   password: z.string().min(5).max(8),
 });
 
-export type RegisterInputForm = z.infer<typeof RegisterInput>;
+export type RegisterInputForm = z.infer<
+  typeof RegisterInput
+>;
 
 export const LoginInput = z.object({
   email: z.string().email(),

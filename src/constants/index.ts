@@ -5,15 +5,15 @@ export const ROLES = ["CLIENT", "ADMIN"] as const;
 
 export type Props = {
   children?: React.ReactNode | React.ReactNode[];
-	[inp: string]: any;
+  [inp: string]: any;
 };
 
-export type PropsWithClass =Props & {
+export type PropsWithClass = Props & {
   className?: string;
-}
+};
 
 export type LinkProps = Props & {
   href: string;
-}
+};
 
 export * from "./messages";

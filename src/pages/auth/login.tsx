@@ -10,7 +10,10 @@ const Login = () => {
   });
 
   const submit = (data: LoginInputForm) => mutate(data);
-  const { register, handleSubmit, onSubmit } = useValidForm(LoginInput, submit);
+  const { register, handleSubmit, onSubmit } = useValidForm(
+    LoginInput,
+    submit
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

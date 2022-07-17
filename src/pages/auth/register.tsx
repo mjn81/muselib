@@ -55,7 +55,7 @@ const Register = () => {
         </form>
         <span className="w-full border-t-2 border-slate-100 mb-6 mt-2" />
         <span className="flex space-x-1">
-          <p>Dont  have an account?</p>
+          <p>Dont have an account?</p>
           <span className="text-dark_purple">
             <Link href="/auth/login">Click here</Link>
           </span>

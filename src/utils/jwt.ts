@@ -14,7 +14,10 @@ export const verify = (token: string, secret: string) => {
   return jwt.verify(token, secret);
 };
 
-export const getPayload = (token: string, secret: string) => {
+export const getPayload = (
+  token: string,
+  secret: string
+) => {
   const payload = jwt.verify(token, secret);
   if (typeof payload === "string") return null;
   return payload;
