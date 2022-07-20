@@ -6,10 +6,11 @@ export const Button = (props: Props) => {
     <button
       className="
       rounded-xl py-3 px-6 outline-2 outline-extra_light_purple
-      w-full bg-gradient-to-br 
+      w-full 
       text-lg
-      from-extra_light_purple to-dark_purple
-      via-light_purple text-white
+      bg-light_purple  text-white
+      transition-all ease-in-out duration-200 
+      hover:bg-purple-600
       "
       {...others}
     >
