@@ -2,14 +2,33 @@
 import { withTRPC } from "@trpc/next";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
-
-import type { AppRouter } from "../server/router";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
-import "../styles/globals.css";
+import { ToastContainer } from "react-toastify";
+
+import type { AppRouter } from "../server/router";
+import "styles/globals.css";
+import "styles/alert.css";
+import "react-toastify/dist/ReactToastify.css";
+import { getToken } from "utils/storage";
+
+
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <ToastContainer
+        position="top-right"
+        autoClose={8000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        draggable={false}
+        closeOnClick
+        pauseOnHover
+      />
+    </>
+  );
 };
 
 const getBaseUrl = () => {
@@ -43,9 +62,11 @@ export default withTRPC<AppRouter>({
         },
       },
       headers: () => {
+        const token = getToken();
+        if (token.length == 0)
+          return {};
         return {
-          authorization:
-            "TOKEN eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1qam5uODFAZ21haWwuY29tIiwiaWQiOiJjbDVsZW90cG8wMDIwZ2VveHFtbnd3bmNuIiwiaWF0IjoxNjU3ODI4MDEzLCJleHAiOjE2NTgwODcyMTN9.mtkaF7fWj9QLLILIrMTqTDiykHuV_zWF7drmzHaQbTM",
+          authorization:  `TOKEN ${token}`
         };
       },
       links,

@@ -1,22 +1,43 @@
-import { Button, Card, Input } from "components";
-import { useValidForm } from "hooks";
-import { AuthLayout } from "layouts";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { Form, Formik, Field } from "formik";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+
+import { Button, Card, Input, Alert } from "components";
+import { AuthLayout } from "layouts";
 import { LoginInput, LoginInputForm } from "schemas";
 import { trpc } from "utils/trpc";
+import { setUser } from "utils/storage";
+import {
+  ALERT_TYPES,
+  LOGIN_INITIAL,
+} from "constants/index";
+import { useRouter } from "next/router";
+
+type FormikActions = {
+  setSubmitting: (isSubmitting: boolean) => void;
+};
 
 const Login = () => {
-  const { mutate, error } = trpc.useMutation("user.login", {
+  // todo redux
+  const router = useRouter();
+  const { mutateAsync } = trpc.useMutation("user.login", {
     onSuccess: (data) => {
-      console.log(data);
+      setUser(data.token, data.userName);
+      router.push("/");
+      toast.success("Login successfull");
+    },
+    onError: ({ message }) => {
+      toast.error(message);
     },
   });
-
-  const submit = (data: LoginInputForm) => mutate(data);
-  const { register, handleSubmit, onSubmit } = useValidForm(
-    LoginInput,
-    submit
-  );
+  
+  const submit = (
+    data: LoginInputForm,
+    { setSubmitting }: FormikActions
+  ) => {
+    mutateAsync(data).then(() => setSubmitting(false));
+  };
 
   return (
     <AuthLayout>
@@ -24,22 +45,43 @@ const Login = () => {
         <h1 className="w-full text-left font-bold text-purple-600 my-4 text-4xl">
           Login.
         </h1>
-        <form
-          className="w-full py-6 flex flex-col space-y-6 items-center justify-center"
-          onSubmit={handleSubmit(onSubmit)}
+        <Formik
+          initialValues={LOGIN_INITIAL}
+          validationSchema={toFormikValidationSchema(
+            LoginInput
+          )}
+          onSubmit={submit}
         >
-          <Input
-            type="email"
-            placeholder="Email"
-            {...register("email")}
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          <Button type="submit">Login</Button>
-        </form>
+          {({ isSubmitting, errors }) => (
+            <Form className="w-full py-6 flex flex-col space-y-6 items-center justify-center">
+              {Object.values(errors).length > 0 && (
+                <Alert type={ALERT_TYPES.ERROR}>
+                  {Object.values(errors).map(
+                    (error, index) => (
+                      <p key={`er_${index}`}>{error}</p>
+                    )
+                  )}
+                </Alert>
+              )}
+              <Field
+                name="email"
+                type="email"
+                placeholder="Email"
+                as={Input}
+              />
+              <Field
+                name="password"
+                type="password"
+                placeholder="Password"
+                as={Input}
+              />
+              <Button type="submit" disabled={isSubmitting}>
+                Login
+              </Button>
+            </Form>
+          )}
+        </Formik>
+
         <span className="w-full border-t-2 border-slate-100 mb-6 mt-2" />
         <span className="flex space-x-1">
           <p>Don&lsquo;t have an account?</p>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { PropsWithChildren } from "react";
 
 export const AuthLayout = (props: PropsWithChildren) => {

@@ -11,6 +11,7 @@ export const Button = (props: Props) => {
       bg-light_purple  text-white
       transition-all ease-in-out duration-200 
       hover:bg-purple-600
+      disabled:bg-extra_light_purple
       "
       {...others}
     >

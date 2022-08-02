@@ -16,4 +16,11 @@
   --extra_dark_purple: 3a1d5c;
 
   --dark_pink: 873776;
+
+  --success-text:#0f5132;
+  --success-back:#d1e7dd;
+  --success-border: #badbcc;
+  --error-text:#842029;
+  --error-back:#f8d7da;
+  --error-border: #f5c2c7; 
 }
