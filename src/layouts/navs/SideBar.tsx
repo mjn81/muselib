@@ -23,7 +23,7 @@ export const SideBar = () => {
       value={{ className: "menu-icons" }}
     >
       {data && (
-        <nav className="bg-extra_dark_purple py-10 px-8  min-w-[350px] text-white font-light">
+        <nav className="bg-extra_dark_purple py-10 px-8  min-w-[310px] text-white font-light">
           <Profile
             username={data.userName}
             profile={data.profile}

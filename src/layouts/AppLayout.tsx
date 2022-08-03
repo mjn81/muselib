@@ -1,15 +1,23 @@
+import { Header } from "components";
 import { Props } from "constants/index";
 import { SideBar } from "./navs";
 
-export const AppLayout = (props: Props) => {
-  const { children } = props;
+type ExteraProps = {
+  title: string;
+} & Props;
 
-  return <div className="flex min-h-screen w-full bg-extra_dark_purple">
-    <SideBar />
-    
-    <main className="bg-white flex-grow">
+export const AppLayout = (props: ExteraProps) => {
+  const { children, title } = props;
 
-    {children}
-    </main>
-  </div>;
+  return (
+    <div className="flex min-h-screen w-full bg-extra_dark_purple">
+      <SideBar />
+
+      <main className="bg-white flex-grow p-8">
+        <Header title={title} />
+
+        {children}
+      </main>
+    </div>
+  );
 };

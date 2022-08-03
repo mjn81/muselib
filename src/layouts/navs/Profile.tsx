@@ -10,7 +10,7 @@ const Profile = ({profile , username , fullname}: Props) => {
   return (
     <div>
       <section className="mb-8">
-        <div className="prof-shadow mb-4 overflow-hidden rounded-2xl w-fit flex items-center justify-center">
+        <div className="prof-shadow mb-4 overflow-hidden rounded-3xl w-fit flex items-center justify-center">
           <Image
             width="80px"
             height="80px"

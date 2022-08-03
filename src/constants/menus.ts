@@ -44,10 +44,10 @@ export const SIDEBAR_MENU = [
     name: "library",
     items: [
       {
-        name: "playlist",
-        title: "My Playlist",
+        name: "playlists",
+        title: "My Playlists",
         icon: RiPlayListLine,
-        path: "/app/myplaylist",
+        path: "/app/myplaylists",
       },
       {
         name: "favourites",
