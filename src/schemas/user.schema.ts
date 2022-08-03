@@ -31,4 +31,5 @@ export const ProfileOutput = z.object({
   userName: z.string(),
   email: z.string().email(),
   role: z.enum(ROLES),
+  profile: z.string(),
 });

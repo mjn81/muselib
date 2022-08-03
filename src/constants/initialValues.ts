@@ -8,4 +8,5 @@ export const REGISTER_INITIAL = {
   userName: "",
   email: "",
   password: "",
+  profile: ""
 };

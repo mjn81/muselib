@@ -24,8 +24,8 @@ const Login = () => {
   const { mutateAsync } = trpc.useMutation("user.login", {
     onSuccess: (data) => {
       setUser(data.token, data.userName);
-      router.push("/");
       toast.success("Login successfull");
+      router.push("/");
     },
     onError: ({ message }) => {
       toast.error(message);

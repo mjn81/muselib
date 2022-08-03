@@ -17,10 +17,20 @@
 
   --dark_pink: 873776;
 
-  --success-text:#0f5132;
-  --success-back:#d1e7dd;
+  --success-text: #0f5132;
+  --success-back: #d1e7dd;
   --success-border: #badbcc;
-  --error-text:#842029;
-  --error-back:#f8d7da;
-  --error-border: #f5c2c7; 
+  --error-text: #842029;
+  --error-back: #f8d7da;
+  --error-border: #f5c2c7;
+}
+
+.menu-icons {
+  margin-right: 1.4rem;
+  font-size: 1.4rem;
+}
+
+.prof-shadow {
+  box-shadow: 0 0 4rem rgba(255, 255, 255, 0.4);
+  
 }

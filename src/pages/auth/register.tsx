@@ -27,7 +27,7 @@ const Register = () => {
         setUser(data.token, data.userName);
         toast.success("success");
         router.push({
-          pathname: "/",
+          pathname: "/app",
         });
       },
       onError: ({ message }) => {

@@ -26,3 +26,5 @@ export enum ALERT_TYPES {
 export * from './initialValues';
 
 export * from "./messages";
+
+export * from "./menus";

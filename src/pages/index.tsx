@@ -1,19 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { toast } from "react-toastify";
-import { trpc } from "utils/trpc";
 
 const Home: NextPage = () => {
   // TODO: create HOC for routegaurding
   
-  const router = useRouter();
-  const { error, warning } = router.query;
-  if (error)
-    toast.error(error);
-  if (warning)
-    toast.warning(warning);
 
   return (
     <>
@@ -29,6 +20,7 @@ const Home: NextPage = () => {
       <div className="flex flex-col">
         <Link href="/auth/login">Login</Link>
         <Link href="/auth/register">Register</Link>
+        <Link href="/app/">App</Link>
       </div>
     </>
   );

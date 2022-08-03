@@ -118,6 +118,7 @@ export const userRouter = createRouter()
         userName: user.userName,
         email: user.email,
         role: user.role,
+        profile: user.profile ?? "",
       };
     },
   });
