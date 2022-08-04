@@ -39,7 +39,7 @@ const Register = () => {
     data: RegisterInputForm,
     { setSubmitting }: FormikActions
   ) => {
-    mutateAsync(data).then(() => setSubmitting(false));
+    mutateAsync(data).finally(() => setSubmitting(false));
   };
 
   return (

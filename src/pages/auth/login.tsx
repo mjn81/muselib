@@ -36,7 +36,7 @@ const Login = () => {
     data: LoginInputForm,
     { setSubmitting }: FormikActions
   ) => {
-    mutateAsync(data).then(() => setSubmitting(false));
+    mutateAsync(data).finally(() => setSubmitting(false));
   };
 
   return (
