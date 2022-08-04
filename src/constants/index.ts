@@ -23,7 +23,7 @@ export enum ALERT_TYPES {
   ERROR = 'error',
 }
 
-export * from './initialValues';
+export * from './forms';
 
 export * from "./messages";
 

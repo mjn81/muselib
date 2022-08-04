@@ -24,10 +24,10 @@ export const roleBaseAuth = async (
     message: MESSAGES["USER_NOT_FOUND"],
   });
   if (role)
-    if (role.includes(user.role))
+    if (!role.includes(user.role))
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: MESSAGES["USER_NOT_AUTHORIZED"],
+        message: MESSAGES["USER_INSUFICIENT_PERMISSION"],
       });
   return user;
 };

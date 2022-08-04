@@ -4,12 +4,11 @@ export const MESSAGES = {
   USER_NOT_AUTHORIZED: "user is not authorized!!",
   USER_NOT_AUTHENTICATED: "user is not authenticated!!",
   USER_WRONG_PASSWORD: "wrong password!!",
+  USER_INSUFICIENT_PERMISSION: "Insuficient permission!!",
 
   INTERNAL_SERVER_ERROR: "Internal server error!!",
 
   NOT_FOUND: "Not found!!",
-  NOT_AUTHORIZED: "Not authorized!!",
-  NOT_AUTHENTICATED: "Not authenticated!!",
 
   INVALID_ARGUMENTS: "Invalid arguments!!",
   INVALID_CREDENTIALS: "Invalid credentials!!",

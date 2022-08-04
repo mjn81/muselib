@@ -5,6 +5,7 @@ export const Button = (props: Props) => {
   return (
     <button
       className="
+      capitalize
       rounded-xl py-3 px-6 outline-2 outline-extra_light_purple
       w-full 
       text-lg

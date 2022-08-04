@@ -10,3 +10,7 @@ export const REGISTER_INITIAL = {
   password: "",
   profile: ""
 };
+
+export const CREATE_GENRE_INITIAL = {
+  name: "",
+}
