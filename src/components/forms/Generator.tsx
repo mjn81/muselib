@@ -1,14 +1,14 @@
 import { Alert, Button, Input } from "components/core";
-import { ALERT_TYPES, FormFieldTypes } from "constants/index";
-import { Field, Form, Formik} from "formik";
+import {
+  ALERT_TYPES,
+  FormFieldTypes,
+} from "constants/index";
+import { Field, Form, Formik } from "formik";
 import { ZodType, ZodTypeDef } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 
 type Props = {
-  submit: (
-    data: any,
-    helpers : any
-  ) => any;
+  submit: (data: any, helpers: any) => any;
   initialValues: {
     [inp: string]: any;
   };
@@ -21,7 +21,6 @@ type Props = {
     [inp: string]: any;
   }[];
   submitBtn: React.ReactNode | React.ReactNode[];
-   
 };
 
 export const Generator = ({
@@ -42,7 +41,7 @@ export const Generator = ({
           {Object.values(errors).length > 0 && (
             <Alert type={ALERT_TYPES.ERROR}>
               {Object.values(errors).map((error, index) => (
-                <p key={`er_${index}`}>{error}</p>
+                <p key={`err_${index}`}>{error?.toString()}</p>
               ))}
             </Alert>
           )}
