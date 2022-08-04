@@ -1,21 +1,16 @@
 import { AppLayout } from "layouts";
 import { NextPage } from "next";
-
 import { TopArtSideBar } from "components";
+import { MockSingers } from "mock";
 
 const App: NextPage = () => {
 
-  const ar = [
-    {
-      name: "artist 1",
-    }
-  ]
   return (
     <AppLayout title="home">
       <section className="flex space-x-2 h-full">
         <div className="flex-grow "></div>
         <aside className="w-[350px] ">
-          <TopArtSideBar singers={ar} />
+          <TopArtSideBar singers={MockSingers} />
         </aside>
       </section>
     </AppLayout>

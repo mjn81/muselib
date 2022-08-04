@@ -18,7 +18,7 @@ export const TopArtSideBar = ({singers} : Props) => {
           <li key={index}>
             <Link href="ds">
               <div className="flex items-center justify-start space-x-4 h-18 cursor-pointer py-1 transition-all top-art rounded-3xl">
-                <section className=" bg-slate-300 flex items-center justify-center top-art-image overflow-hidden">
+                <section className="bg-extra_light_purple flex items-center justify-center top-art-image overflow-hidden">
                   <Image
                     src="/images/artist.jpg"
                     alt="artist"
