@@ -1,7 +1,7 @@
 import { AppLayout } from "layouts";
 
 const Genres = () => {
-  return <AppLayout>genres</AppLayout>
+  return <AppLayout title="genres">genres</AppLayout>
 }
 
 export default Genres;
