@@ -6,12 +6,28 @@ import {
   BiUser,
   BiHeart,
   BiLineChart,
+  BiListPlus,
 } from "react-icons/bi";
+import { Role } from "@prisma/client";
 
 export const SIDEBAR_MENU = [
   {
-    title: "Menu",
+    title: "admin",
+    name: "admin",
+    roles: [Role.ADMIN],
+    items: [
+      {
+        title: "create genre",
+        name: "createGenre",
+        icon: BiListPlus,
+        path: "/admin/genre",
+      },
+    ],
+  },
+  {
+    title: "menu",
     name: "menu",
+    roles: [Role.CLIENT, Role.ADMIN],
     items: [
       {
         name: "dashboard",
@@ -40,8 +56,9 @@ export const SIDEBAR_MENU = [
     ],
   },
   {
-    title: "Library",
+    title: "library",
     name: "library",
+    roles: [Role.CLIENT, Role.ADMIN],
     items: [
       {
         name: "playlists",

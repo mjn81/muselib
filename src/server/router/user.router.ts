@@ -8,6 +8,7 @@ import {
   RegisterInput,
   UserOutput,
 } from "schemas";
+import { roleBaseAuth } from "utils/auth";
 import { getEnv } from "utils/env";
 import { encrypt, verify } from "utils/hash";
 import { sign } from "utils/jwt";
@@ -96,23 +97,7 @@ export const userRouter = createRouter()
   .query("me", {
     output: ProfileOutput,
     resolve: async ({ ctx }) => {
-      const payload = ctx.user;
-      if (!payload)
-        throw new TRPCError({
-          code: "UNAUTHORIZED",
-          message: MESSAGES["USER_NOT_AUTHENTICATED"],
-        });
-
-      const user = await ctx.prisma.users.findUnique({
-        where: {
-          id: payload.id,
-        },
-      });
-      if (!user)
-        throw new TRPCError({
-          code: "UNAUTHORIZED",
-          message: MESSAGES["USER_NOT_FOUND"],
-        });
+      const user = await roleBaseAuth(ctx.user, ctx.prisma);
       return {
         fullName: user.fullName,
         userName: user.userName,

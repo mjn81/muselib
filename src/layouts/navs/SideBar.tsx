@@ -30,8 +30,9 @@ export const SideBar = () => {
             fullname={data.fullName}
           />
 
-          <section>
-            {SIDEBAR_MENU.map((item) => (
+          <section className="overflow-x-hidden">
+            {SIDEBAR_MENU.map((item) => 
+              item.roles.includes(data.role) && (
               <NavItem
                 item={item}
                 pathname={router.pathname}
