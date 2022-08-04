@@ -1,2 +1,3 @@
 export * from "./core";
-export * from './Header';
+export * from './partials';
+export * from './pages';

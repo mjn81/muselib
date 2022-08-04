@@ -13,10 +13,9 @@ export const AppLayout = (props: ExteraProps) => {
     <div className="flex min-h-screen w-full bg-extra_dark_purple">
       <SideBar />
 
-      <main className="bg-white flex-grow p-8">
+      <main className="bg-white flex flex-col flex-grow p-8">
         <Header title={title} />
-
-        {children}
+        <div className="flex-grow">{children}</div>
       </main>
     </div>
   );

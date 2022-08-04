@@ -14,7 +14,7 @@ const Profile = ({profile , username , fullname}: Props) => {
           <Image
             width="80px"
             height="80px"
-            alt="has to be changed"
+            alt={username}
             objectFit="cover"
             src={
               profile ||

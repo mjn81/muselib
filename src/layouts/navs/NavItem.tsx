@@ -18,9 +18,9 @@ const NavItem = ({item, pathname}: Props) => {
   return (
     <div>
       <section className="mb-7">
-        <div className="font-bold text-sm mb-4">
+        <h5 className="font-bold text-sm mb-4">
           {item.title}
-        </div>
+        </h5>
         <ul>
           {item?.items.map((item) => (
             <li
