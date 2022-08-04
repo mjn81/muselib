@@ -1,12 +1,14 @@
 import { TiHome, TiFolderDelete } from "react-icons/ti";
 import { BsSoundwave } from "react-icons/bs";
 import { TbFolderMinus } from "react-icons/tb";
-import { RiPlayListLine } from "react-icons/ri";
+import {
+  RiPlayListLine,
+  RiBarChartHorizontalFill,
+} from "react-icons/ri";
 import {
   BiUser,
   BiHeart,
   BiLineChart,
-  BiListPlus,
 } from "react-icons/bi";
 import { Role } from "@prisma/client";
 
@@ -17,9 +19,9 @@ export const SIDEBAR_MENU = [
     roles: [Role.ADMIN],
     items: [
       {
-        title: "create genre",
-        name: "createGenre",
-        icon: BiListPlus,
+        title: "manage genres",
+        name: "genre",
+        icon: RiBarChartHorizontalFill,
         path: "/admin/genre",
       },
     ],
