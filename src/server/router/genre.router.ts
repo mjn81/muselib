@@ -4,7 +4,6 @@ import {
   CreateGenreOutput,
   GetGenreByIdInput,
   GetGenreOutput,
-  UpdateGenreInput,
 } from "schemas";
 import { roleBaseAuth } from "utils/auth";
 import { createRouter } from "./context";
@@ -27,7 +26,7 @@ export const genreRouter = createRouter()
     },
   })
   .mutation("update", {
-    input: UpdateGenreInput,
+    input: CreateGenreOutput,
     output: CreateGenreOutput,
     resolve: async ({ input, ctx }) => {
       await roleBaseAuth(ctx.user, ctx.prisma, [

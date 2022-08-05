@@ -4,9 +4,11 @@ import superjson from "superjson";
 
 import { userRouter } from "./user.router";
 import { genreRouter } from "./genre.router";
+import { singerRouter } from "./singer.router";
 
 export const appRouter = createRouter()
   .transformer(superjson)
   .merge("user.", userRouter)
-  .merge("genre.", genreRouter);
+  .merge("genre.", genreRouter)
+  .merge("singer.", singerRouter);
 export type AppRouter = typeof appRouter;

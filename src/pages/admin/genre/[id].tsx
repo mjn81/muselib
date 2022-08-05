@@ -8,7 +8,7 @@ const EditGenre = () => {
   const id  = useRouter().query.id as string;
   const {data} = trpc.useQuery(['genre.getById', {id}]);
   return (
-    <FormLayout title='edit genre'>
+    <FormLayout title='update genre'>
       {data&& <EditGenreForm initialValues={{name: data.name}} />}
     </FormLayout>
   )
