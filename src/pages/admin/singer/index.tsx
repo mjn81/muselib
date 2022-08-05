@@ -5,11 +5,24 @@ import Link from "next/link";
 import React from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { postError, postSuccess } from "utils/res";
 import { trpc } from "utils/trpc";
 
 const ManageSinger = () => {
-  const { data, refetch } = trpc.useQuery(["singer.getAll"]);
-  const { mutateAsync } = trpc.useMutation(["singer.delete"]);
+  const { data, refetch } = trpc.useQuery([
+    "singer.getAll",
+  ]);
+  const { mutateAsync } = trpc.useMutation(
+    ["singer.delete"],
+    {
+      onSuccess: () => {
+        postSuccess("Singer removed successfully");
+      },
+      onError: ({ message }) => {
+        postError(message);
+      },
+    }
+  );
   const SingerColumns = React.useMemo(
     () => [
       {
@@ -55,7 +68,7 @@ const ManageSinger = () => {
     ],
     [mutateAsync, refetch]
   );
-  
+
   return (
     <ListLayout
       title="manage singers"

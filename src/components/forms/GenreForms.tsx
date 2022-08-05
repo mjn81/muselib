@@ -52,13 +52,9 @@ export const CreateGenreForms = () => {
   );
 };
 
-export const EditGenreForm = ({initialValues}: any) => {
+export const EditGenreForm = ({initialValues, id}: any) => {
   const router = useRouter();
-  const id = router.query.id as string;
-  if (!id) {
-    toast.error("no id");
-    router.push("/admin/genre");
-  }
+
   const { mutateAsync } = trpc.useMutation(
     ["genre.update"],
     {
@@ -83,7 +79,6 @@ export const EditGenreForm = ({initialValues}: any) => {
       resetForm();
     });
   };
-  console.log();
   return (
     <div>
       <Generator

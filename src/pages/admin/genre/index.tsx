@@ -8,7 +8,7 @@ import { postSuccess, postError } from "utils/res";
 import { trpc } from "utils/trpc";
 
 const ManageGenre = () => {
-  const { data, refetch, isLoading } = trpc.useQuery(
+  const { data, refetch } = trpc.useQuery(
     ["genre.getAll"],
     {
       onError: ({ message }) => {

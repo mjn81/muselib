@@ -9,7 +9,7 @@ const EditGenre = () => {
   const {data} = trpc.useQuery(['genre.getById', {id}]);
   return (
     <FormLayout title='update genre'>
-      {data&& <EditGenreForm initialValues={{name: data.name}} />}
+      {data&& <EditGenreForm initialValues={{...data}} />}
     </FormLayout>
   )
 }

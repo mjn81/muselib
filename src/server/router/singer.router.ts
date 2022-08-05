@@ -41,6 +41,7 @@ export const singerRouter = createRouter()
           name,
         },
       });
+      
       return singer;
     },
   })
@@ -71,11 +72,11 @@ export const singerRouter = createRouter()
     input: GetSingerByIdInput,
     resolve: async ({ input, ctx }) => {
       const { id } = input;
-      const genre = await ctx.prisma.genres.findUnique({
+      const singer = await ctx.prisma.singers.findUnique({
         where: {
           id: id,
         },
       });
-      return genre;
+      return singer;
     },
   });
