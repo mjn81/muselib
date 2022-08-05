@@ -4,6 +4,7 @@ type Props = {
     accessor?: string;
     Cell: Function;
     cellClass?: string;
+    action?: Function;
   }[];
   data: any[] | undefined;
 };
@@ -31,7 +32,7 @@ export const Table = ({ columns, data }: Props) => {
               <tr key={row.id}>
                 {columns.map(
                   (
-                    { accessor, Cell, cellClass },
+                    { accessor, Cell, cellClass, action },
                     index
                   ) => (
                     <td
@@ -44,6 +45,7 @@ export const Table = ({ columns, data }: Props) => {
                             value: accessor
                               ? row[accessor]
                               : row,
+                            action: action,
                           }) || "_"}
                         </div>
                       </div>

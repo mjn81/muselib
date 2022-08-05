@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { ROLES } from "constants/index";
 
 export const RegisterInput = z.object({
   fullName: z.string(),
@@ -25,6 +24,7 @@ export const UserOutput = z.object({
 });
 
 //adding image profile handler (phase 2)
+const ROLES = ["CLIENT", "ADMIN"] as const;
 
 export const ProfileOutput = z.object({
   fullName: z.string(),

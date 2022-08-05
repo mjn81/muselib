@@ -4,6 +4,15 @@ export const CreateGenreInput = z.object({
   name: z.string(),
 }); 
 
+export const UpdateGenreInput = z.object({
+  id:z.string(),
+  name: z.string(),
+}); 
+
+export const GetGenreByIdInput = z.object({
+  id: z.string(),
+});
+
 export type CreateGenreForm = z.infer<typeof CreateGenreInput>;
 
 export const CreateGenreOutput = z.object({

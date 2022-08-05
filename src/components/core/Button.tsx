@@ -20,3 +20,15 @@ export const Button = (props: Props) => {
     </button>
   );
 };
+
+export const ButtonIcon = (props: Props) => {
+  const { children, ...others } = props;
+  return (
+    <button
+      className="border-none outline-none bg-transparent disabled:opacity-60 disabled:cursor-not-allowed"
+      {...others}
+    >
+      {children}
+    </button>
+  );
+}

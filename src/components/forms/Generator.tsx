@@ -35,6 +35,7 @@ export const Generator = ({
       initialValues={initialValues}
       validationSchema={toFormikValidationSchema(validator)}
       onSubmit={submit}
+      enableReinitialize={true}
     >
       {({ isSubmitting, errors }) => (
         <Form className="w-full py-6 flex flex-col space-y-4 items-center justify-center">
@@ -45,7 +46,7 @@ export const Generator = ({
               ))}
             </Alert>
           )}
-          {fields.map(({ fieldType, ...other }, index) => (
+          {fields.map(({ fieldType , ...other  }, index) => (
             <FieldGenerator
               key={index}
               fieldType={fieldType}
