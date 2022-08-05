@@ -1,4 +1,3 @@
-
 type Props = {
   columns: {
     title: string;
@@ -7,7 +6,6 @@ type Props = {
     cellClass?: string;
   }[];
   data: any[] | undefined;
-
 };
 
 export const Table = ({ columns, data }: Props) => {
@@ -28,35 +26,32 @@ export const Table = ({ columns, data }: Props) => {
         </thead>
 
         <tbody className="bg-white">
-          {data && data.map((row) => (
-            <tr key={row.id}>
-              {columns.map(
-                ({ accessor, Cell, cellClass }, index) => (
-                  <td
-                    key={`tbd_${index}_${row.id}`}
-                    className="px-6 py-4 whitespace-no-wrap"
-                  >
-                    <div className="flex items-center">
-                      <div
-                        className={
-                          cellClass + " " +
-                          (index === 0
-                            ? "text-gray-900"
-                            : "text-gray-500")
-                        }
-                      >
-                        {Cell({
-                          value: accessor
-                            ? row[accessor]
-                            : row,
-                        }) || "_"}
+          {data &&
+            data.map((row) => (
+              <tr key={row.id}>
+                {columns.map(
+                  (
+                    { accessor, Cell, cellClass },
+                    index
+                  ) => (
+                    <td
+                      key={`tbd_${index}_${row.id}`}
+                      className="px-6 py-4 whitespace-no-wrap"
+                    >
+                      <div className="flex items-center">
+                        <div className={cellClass}>
+                          {Cell({
+                            value: accessor
+                              ? row[accessor]
+                              : row,
+                          }) || "_"}
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                )
-              )}
-            </tr>
-          ))}
+                    </td>
+                  )
+                )}
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

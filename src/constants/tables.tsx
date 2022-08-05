@@ -7,13 +7,13 @@ export const GenreColumns = [
     title: "id",
     accessor: "id",
     Cell: ({ value }: { value: string }) => value,
-    cellClass: "text-sm font-medium",
+    cellClass: "text-sm font-medium text-gray-900",
   },
   {
     title: "name",
     accessor: "name",
     Cell: ({ value }: { value: string }) => value,
-    cellClass: "text-sm font-medium",
+    cellClass: "text-sm font-medium text-gray-500",
   },
   {
     title: "edit",
