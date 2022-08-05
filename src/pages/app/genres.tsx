@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { trpc } from "utils/trpc";
 
 const Genres = () => {
-  const { data } = trpc.useQuery(["genre.getGenres"], {
+  const { data } = trpc.useQuery(["genre.getAll"], {
     onError: ({ message }) => {
       toast.error(message);
     },
