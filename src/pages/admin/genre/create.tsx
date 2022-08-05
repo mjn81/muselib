@@ -1,8 +1,12 @@
+import { CreateGenreForms } from 'components'
+import { FormLayout } from 'layouts'
 import React from 'react'
 
 const CreateGenre = () => {
   return (
-    <div>CreateGenre</div>
+    <FormLayout title='create new genre'>
+      <CreateGenreForms />
+    </FormLayout>
   )
 }
 
