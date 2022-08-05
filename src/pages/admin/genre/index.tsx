@@ -72,7 +72,7 @@ const ManageGenre = () => {
   
   return (
     <ListLayout
-      title="ManageGenres"
+      title="manage genres"
       btn={{ title: "create genre", path: "genre/create" }}
     >
       <Table columns={GenreColumns} data={data} />

@@ -1,9 +1,12 @@
 import { TiHome, TiFolderDelete } from "react-icons/ti";
-import { BsSoundwave } from "react-icons/bs";
+import {
+  BsSoundwave,
+  BsBookmarksFill,
+} from "react-icons/bs";
 import { TbFolderMinus } from "react-icons/tb";
 import {
   RiPlayListLine,
-  RiBarChartHorizontalFill,
+  RiUserVoiceFill,
 } from "react-icons/ri";
 import {
   BiUser,
@@ -21,8 +24,14 @@ export const SIDEBAR_MENU = [
       {
         title: "manage genres",
         name: "genre",
-        icon: RiBarChartHorizontalFill,
+        icon: BsBookmarksFill,
         path: "/admin/genre",
+      },
+      {
+        title: "manage singers",
+        name: "singer",
+        icon: RiUserVoiceFill,
+        path: "/admin/singer",
       },
     ],
   },

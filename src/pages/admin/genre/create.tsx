@@ -4,7 +4,7 @@ import React from 'react'
 
 const CreateGenre = () => {
   return (
-    <FormLayout title='create new genre'>
+    <FormLayout title='create genre'>
       <CreateGenreForms />
     </FormLayout>
   )
