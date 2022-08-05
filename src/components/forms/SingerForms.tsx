@@ -5,7 +5,6 @@ import {
 import { FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { toast } from "react-toastify";
 import { CreateSingerForm, CreateSingerInput } from "schemas";
 import { postError, postSuccess } from "utils/res";
 import { trpc } from "utils/trpc";

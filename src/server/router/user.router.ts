@@ -1,8 +1,9 @@
-import { Role } from "@prisma/client";
+import { prisma, Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
 import { MESSAGES } from "constants/index";
 import {
+  DeleteUserInput,
   LoginInput,
   ProfileOutput,
   RegisterInput,
@@ -94,6 +95,21 @@ export const userRouter = createRouter()
       };
     },
   })
+  .mutation("delete", {
+    input: DeleteUserInput,
+    resolve: async ({ input,ctx }) => {
+      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+      const { id } = input;
+      
+      const user = await ctx.prisma.users.delete({
+        where: {
+          id: id,
+        }
+      });
+
+      return user;
+    }
+  })
   .query("me", {
     output: ProfileOutput,
     resolve: async ({ ctx }) => {
@@ -106,4 +122,21 @@ export const userRouter = createRouter()
         profile: user.profile ?? "",
       };
     },
+  })
+  // phase 2 : paginate data + add likes and ... data
+  .query("getAll", {
+    resolve: async ({ ctx }) => {
+      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+
+      const users = await ctx.prisma.users.findMany({
+        include: {
+          _count: {
+            select: {
+              Likes: true
+            }
+          }
+        },
+      });
+      return users;
+    }
   });

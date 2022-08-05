@@ -6,8 +6,9 @@ import { PropsWithChildren } from "react";
 type Props = {
   title: string;
   btn: {
-    title: string;
-    path: string;
+    title?: string;
+    path?: string;
+    hidden?: boolean;
   }
 } & PropsWithChildren;
 
@@ -15,11 +16,11 @@ export const ListLayout = ({ title, children, btn }: Props) => {
   return (
     <AppLayout title={title}>
       <div className="flex flex-col">
-        <Link href={btn.path}>
+        {!btn.hidden && btn.path && <Link href={btn.path}>
           <div className="cursor-pointer text-sm self-end rounded-xl px-4 py-2 w-fit bg-purple-500 hover:bg-purple-600 transition-colors text-white capitalize mb-3">
             {btn.title}
           </div>
-        </Link>
+        </Link>}
         {children}
       </div>
     </AppLayout>

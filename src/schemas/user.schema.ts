@@ -24,7 +24,7 @@ export const UserOutput = z.object({
   token: z.string(),
 });
 
-//adding image profile handler (phase 2)
+// phase 2: adding image profile handler 
 
 export const ProfileOutput = z.object({
   fullName: z.string(),
@@ -33,3 +33,20 @@ export const ProfileOutput = z.object({
   role: z.enum(ROLES),
   profile: z.string(),
 });
+
+// phase 3: add possiblity to see individual user details
+
+export const GetUserOutput = z.object({
+  id: z.string(),
+  fullName: z.string(),
+  userName: z.string(),
+  email: z.string().email(),
+  role: z.enum(ROLES),
+  profile: z.string(),
+  password: z.string(),
+  likes: z.number(),
+});
+
+export const DeleteUserInput = z.object({
+  id: z.string(),
+})

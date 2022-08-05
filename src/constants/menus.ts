@@ -7,6 +7,7 @@ import { TbFolderMinus } from "react-icons/tb";
 import {
   RiPlayListLine,
   RiUserVoiceFill,
+  RiUser6Fill,
 } from "react-icons/ri";
 import {
   BiUser,
@@ -32,6 +33,12 @@ export const SIDEBAR_MENU = [
         name: "singer",
         icon: RiUserVoiceFill,
         path: "/admin/singer",
+      },
+      {
+        title: "manage users",
+        name: "users",
+        icon: RiUser6Fill,
+        path: "/admin/user",
       },
     ],
   },
