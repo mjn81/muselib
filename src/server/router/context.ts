@@ -22,20 +22,24 @@ export const createContext = async (
     };
   const token_data = token.split(" ")[1];
   if (!token_data)
-    throw new trpc.TRPCError({
-      code: "BAD_REQUEST",
-      message: MESSAGES["INVALID_TOKEN"],
-    });
+    return {
+      req,
+      res,
+      prisma,
+      user: undefined,
+    };
 
   const payload = getPayload(
     token_data,
     getEnv("JWT_SECRET")
   );
   if (!payload)
-    throw new trpc.TRPCError({
-      code: "BAD_REQUEST",
-      message: MESSAGES["INVALID_TOKEN"],
-    });
+    return {
+      req,
+      res,
+      prisma,
+      user: undefined,
+    };
 
   return {
     req,
