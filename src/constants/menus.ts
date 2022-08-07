@@ -8,7 +8,7 @@ import {
   RiPlayListLine,
   RiUserVoiceFill,
   RiUser6Fill,
-  RiAlbumFill,
+  RiMusic2Fill,
 } from "react-icons/ri";
 import {
   BiUser,
@@ -67,10 +67,10 @@ export const SIDEBAR_MENU = [
         path: "/app/genres",
       },
       {
-        name: "albums",
-        title: "Albums",
-        icon: RiAlbumFill,
-        path: "/app/albums",
+        name: "musics",
+        title: "musics",
+        icon: RiMusic2Fill,
+        path: "/app/musics",
       },
       {
         name: "artists",
