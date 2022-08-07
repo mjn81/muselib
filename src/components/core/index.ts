@@ -4,3 +4,5 @@ export * from "./Card";
 export * from "./Alert";
 export * from "./Table";
 export * from "./Badge";
+export * from "./Select";
+export * from "./Date";

@@ -1,16 +1,34 @@
 import { ButtonIcon, SimpleBadge, Table } from "components";
 import { ListLayout } from "layouts";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { postError, postSuccess } from "utils/res";
 import { trpc } from "utils/trpc";
 
 // phase 2 : add create user for admin as well!!
 
 const ManageUser = () => {
-  const { data, refetch } = trpc.useQuery(["user.getAll"]);
-  const { mutateAsync } = trpc.useMutation(["user.delete"]);
+  const router = useRouter();
+  const { data, refetch } = trpc.useQuery(["user.getAll"], {
+    onError: ({ message }) => {
+      postError(message);
+      router.push("/app");
+    }
+  });
+  const { mutateAsync } = trpc.useMutation(
+    ["user.delete"],
+    {
+      onSuccess: () => {
+        postSuccess("Singer removed successfully");
+      },
+      onError: ({ message }) => {
+        postError(message);
+      },
+    }
+  );
   const UserColumns = React.useMemo(
     () => [
       {

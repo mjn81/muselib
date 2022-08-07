@@ -2,12 +2,13 @@ import { TiHome, TiFolderDelete } from "react-icons/ti";
 import {
   BsSoundwave,
   BsBookmarksFill,
+  BsMusicNoteList,
 } from "react-icons/bs";
-import { TbFolderMinus } from "react-icons/tb";
 import {
   RiPlayListLine,
   RiUserVoiceFill,
   RiUser6Fill,
+  RiAlbumFill,
 } from "react-icons/ri";
 import {
   BiUser,
@@ -23,22 +24,28 @@ export const SIDEBAR_MENU = [
     roles: [Role.ADMIN],
     items: [
       {
-        title: "manage genres",
+        title: "genres",
         name: "genre",
         icon: BsBookmarksFill,
         path: "/admin/genre",
       },
       {
-        title: "manage singers",
+        title: "singers",
         name: "singer",
         icon: RiUserVoiceFill,
         path: "/admin/singer",
       },
       {
-        title: "manage users",
+        title: "users",
         name: "users",
         icon: RiUser6Fill,
         path: "/admin/user",
+      },
+      {
+        title: "musics",
+        name: "muisc",
+        icon: BsMusicNoteList,
+        path: "/admin/music",
       },
     ],
   },
@@ -62,7 +69,7 @@ export const SIDEBAR_MENU = [
       {
         name: "albums",
         title: "Albums",
-        icon: TiFolderDelete,
+        icon: RiAlbumFill,
         path: "/app/albums",
       },
       {
@@ -99,7 +106,7 @@ export const SIDEBAR_MENU = [
       {
         name: "mymusic",
         title: "My Music",
-        icon: TbFolderMinus,
+        icon: TiFolderDelete,
         path: "/app/mymusic",
       },
     ],

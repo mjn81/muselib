@@ -7,7 +7,6 @@ import { trpc } from 'utils/trpc';
 const EditSinger = () => {
   const id = useRouter().query.id as string;
   const { data } = trpc.useQuery(['singer.getById', { id }]);
-  console.log(data);
   
   return (
     <FormLayout title='update singer'>

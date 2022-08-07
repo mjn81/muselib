@@ -1,4 +1,4 @@
-import { prisma, Role } from "@prisma/client";
+import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
 import { MESSAGES } from "constants/index";
@@ -7,6 +7,7 @@ import {
   LoginInput,
   ProfileOutput,
   RegisterInput,
+  UpdateUserInput,
   UserOutput,
 } from "schemas";
 import { roleBaseAuth } from "utils/auth";
@@ -110,6 +111,35 @@ export const userRouter = createRouter()
       return user;
     }
   })
+  .mutation("update", {
+    input: UpdateUserInput,
+    output: ProfileOutput,
+    resolve: async ({ input, ctx }) => {
+      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+      const { id, fullName, userName, email,role,profile } = input;
+
+      const user = await ctx.prisma.users.update({
+        where: {
+          id: id,
+        },
+        data: {
+          fullName,
+          userName,
+          email,
+          role,
+          profile
+        },
+      });
+
+      return {
+        fullName: user.fullName,
+        userName: user.userName,
+        email: user.email,
+        role: user.role,
+        profile: user.profile ?? "", 
+      };
+    }
+  })
   .query("me", {
     output: ProfileOutput,
     resolve: async ({ ctx }) => {
@@ -137,6 +167,19 @@ export const userRouter = createRouter()
           }
         },
       });
+      return users;
+    }
+  })
+  .query("getById", {
+    input: DeleteUserInput,
+    resolve: async ({ input,ctx }) => {
+      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+      const { id } = input;
+      const users = await ctx.prisma.users.findUniqueOrThrow({
+        where: {
+          id: id,
+        },
+      }); 
       return users;
     }
   });

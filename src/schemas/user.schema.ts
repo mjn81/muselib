@@ -50,3 +50,16 @@ export const GetUserOutput = z.object({
 export const DeleteUserInput = z.object({
   id: z.string(),
 })
+
+export const UpdateUserInput = z.object({
+  id: z.string(),
+  fullName: z.string(),
+  userName: z.string(),
+  email: z.string().email(),
+  role: z.enum(ROLES),
+  profile: z.string(),
+});  
+
+export type UpdateUserForm = z.infer<typeof ProfileOutput>;
+
+

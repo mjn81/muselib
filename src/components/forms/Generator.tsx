@@ -1,4 +1,11 @@
-import { Alert, Button, Input } from "components/core";
+import {
+  Alert,
+  Button,
+  DateField,
+  Input,
+  MultipleSelect,
+  SelectField,
+} from "components/core";
 import {
   ALERT_TYPES,
   FormFieldTypes,
@@ -37,19 +44,26 @@ export const Generator = ({
       onSubmit={submit}
       enableReinitialize={true}
     >
-      {({ isSubmitting, errors }) => (
+      {({
+        isSubmitting,
+        errors,
+        setFieldValue,
+      }) => (
         <Form className="w-full py-6 flex flex-col space-y-4 items-center justify-center">
           {Object.values(errors).length > 0 && (
             <Alert type={ALERT_TYPES.ERROR}>
               {Object.values(errors).map((error, index) => (
-                <p key={`err_${index}`}>{error?.toString()}</p>
+                <p key={`err_${index}`}>
+                  {error?.toString()}
+                </p>
               ))}
             </Alert>
           )}
-          {fields.map(({ fieldType , ...other  }, index) => (
+          {fields.map(({ fieldType, ...other }, index) => (
             <FieldGenerator
               key={index}
               fieldType={fieldType}
+              setField={setFieldValue}
               {...other}
             />
           ))}
@@ -64,15 +78,30 @@ export const Generator = ({
 
 type FieldProps = {
   fieldType: FormFieldTypes;
+  name: string;
+  setField: Function;
   [inp: string]: any;
 };
 
 const FieldGenerator = ({
   fieldType,
+  setField,
   ...others
 }: FieldProps) => {
   switch (fieldType) {
     case FormFieldTypes.input:
       return <Field as={Input} {...others} />;
+    case FormFieldTypes.select:
+      return (
+        <Field
+          as={SelectField}
+          setValue={setField}
+          {...others}
+        />
+      );
+    case FormFieldTypes.date:
+      return <DateField {...others} />
+    case FormFieldTypes.multiselect:
+      return <MultipleSelect {...others} />
   }
 };

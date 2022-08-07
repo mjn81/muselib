@@ -17,3 +17,11 @@ export const CREATE_GENRE_INITIAL = {
 export const CREATE_SINGER_INITIAL = {
   name: "",
 }
+export const CREATE_MUSIC_INITIAL = {
+  title: "",
+  year: new Date(),
+  musicLink: "",
+  genres: [],
+  singers: [],
+  
+}

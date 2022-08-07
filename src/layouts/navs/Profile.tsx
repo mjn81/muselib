@@ -17,7 +17,7 @@ const Profile = ({profile , username , fullname}: Props) => {
             alt={username}
             objectFit="cover"
             src={
-              profile ||
+              profile.replaceAll(" ","") ||
               `https://ui-avatars.com/api/?background=6c27ea&color=fff&name=${username}+${fullname}`
             }
           />
