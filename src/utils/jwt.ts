@@ -23,8 +23,8 @@ export const getPayload = (
     if (typeof payload === "string") return null;
     return payload;
   } catch (error) {
-    throw error;
-  } finally {
+    // phase 3 : logger 
+    console.log(error);
     return null;
   }
 };

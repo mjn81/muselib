@@ -1,7 +1,6 @@
 // src/server/router/context.ts
 import * as trpc from "@trpc/server";
 import * as trpcNext from "@trpc/server/adapters/next";
-import { MESSAGES } from "constants/index";
 
 import { prisma } from "server/db/client";
 import { getEnv } from "utils/env";
@@ -21,26 +20,26 @@ export const createContext = async (
       user: undefined,
     };
   const token_data = token.split(" ")[1];
-  if (!token_data)
+  if (!token_data) {
     return {
       req,
       res,
       prisma,
       user: undefined,
     };
-
+  }
   const payload = getPayload(
     token_data,
     getEnv("JWT_SECRET")
   );
-  if (!payload)
+  if (!payload) {
     return {
       req,
       res,
       prisma,
       user: undefined,
     };
-
+  }
   return {
     req,
     res,
