@@ -8,7 +8,7 @@ T3 stack
 
 ## Done
 
-- [ ] phase 1 done
+- [x] phase 1 done
 
 ## Things to be done
 
