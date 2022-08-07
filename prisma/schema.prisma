@@ -2,15 +2,15 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
-    previewFeatures = ["referentialIntegrity"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider = "mysql"
-    // url      = "file:./db.sqlite"
-    url      = env("DATABASE_URL")
-    referentialIntegrity = "prisma"
+  provider             = "mysql"
+  // url      = "file:./db.sqlite"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model Users {
@@ -20,7 +20,7 @@ model Users {
   email     String      @unique
   password  String
   role      Role        @default(CLIENT)
-  profile   String?      
+  profile   String?
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Likes     Likes[]
@@ -29,21 +29,23 @@ model Users {
 }
 
 model Likes {
-  id       String @id @unique @default(cuid())
-  musicId  Musics @relation(fields: [musicsId], references: [id])
-  userId   Users  @relation(fields: [usersId], references: [id])
-  musicsId String
-  usersId  String
+  id        String   @id @unique @default(cuid())
+  musicId   Musics   @relation(fields: [musicsId], references: [id], onDelete: Cascade)
+  userId    Users    @relation(fields: [usersId], references: [id], onDelete: SetNull)
+  musicsId  String
+  usersId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Musics {
   id           String         @id @unique @default(cuid())
   title        String
-  year         DateTime
+  year         DateTime       @db.Date
   musicLink    String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  userId       Users          @relation(fields: [usersId], references: [id])
+  userId       Users          @relation(fields: [usersId], references: [id], onDelete: SetNull)
   Likes        Likes[]
   usersId      String
   PlayListItem PlayListItem[]
@@ -54,49 +56,62 @@ model Musics {
 model PlayLists {
   id           String         @id @unique @default(cuid())
   name         String
-  userId       Users          @relation(fields: [usersId], references: [id])
+  userId       Users          @relation(fields: [usersId], references: [id], onDelete: Cascade)
   usersId      String
   PlayListItem PlayListItem[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
 
 model Genres {
   id        String      @id @unique @default(cuid())
   name      String
   GenreItem GenreItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model Singers {
   id         String       @id @unique @default(cuid())
   name       String
   SingerItem SingerItem[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
 
 model PlayListItem {
   id          String    @id @unique @default(cuid())
-  musicId     Musics    @relation(fields: [musicsId], references: [id])
-  playListId  PlayLists @relation(fields: [playListsId], references: [id])
+  musicId     Musics    @relation(fields: [musicsId], references: [id], onDelete: Cascade)
+  playListId  PlayLists @relation(fields: [playListsId], references: [id], onDelete: Cascade)
   musicsId    String
   playListsId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model SingerItem {
-  id        String  @id @unique @default(cuid())
-  singer    Singers @relation(fields: [singersId], references: [id])
-  musicId   Musics  @relation(fields: [musicsId], references: [id])
+  id        String   @id @unique @default(cuid())
+  singer    Singers  @relation(fields: [singersId], references: [id], onDelete: Cascade)
+  musicId   Musics   @relation(fields: [musicsId], references: [id], onDelete: Cascade)
   singersId String
   musicsId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model GenreItem {
-  id       String @id @unique @default(cuid())
-  genreId  Genres @relation(fields: [genresId], references: [id])
-  musicId  Musics @relation(fields: [musicsId], references: [id])
-  genresId String
-  musicsId String
+  id        String   @id @unique @default(cuid())
+  genreId   Genres   @relation(fields: [genresId], references: [id], onDelete: Cascade)
+  musicId   Musics   @relation(fields: [musicsId], references: [id], onDelete: Cascade)
+  genresId  String
+  musicsId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {
   ADMIN
   CLIENT
 }
+
 // create user profile and file uploading api in probably nest or maybe express??

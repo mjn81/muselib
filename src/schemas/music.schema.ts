@@ -29,3 +29,11 @@ export const CreateMusicValidator = z.object({
 });
 
 export type CreateMusicForm = z.infer<typeof CreateMusicValidator>;
+
+export const DeleteMusicInput = z.object({
+  id: z.string(),
+});
+
+export const UpdateMusicInput = CreateMusicInput.merge(DeleteMusicInput);
+
+export type UpdateMusicForm = z.infer<typeof UpdateMusicInput>;

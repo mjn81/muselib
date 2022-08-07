@@ -6,11 +6,11 @@ import { trpc } from 'utils/trpc';
 
 const EditSinger = () => {
   const id = useRouter().query.id as string;
-  const { data } = trpc.useQuery(['singer.getById', { id }]);
+  const { data,refetch } = trpc.useQuery(['singer.getById', { id }]);
   
   return (
     <FormLayout title='update singer'>
-      {data && <EditSingerForm initialValues={{...data}} id={id} />}
+      {data && <EditSingerForm initialValues={{...data}} refetch={refetch} />}
     </FormLayout>
   )
 }

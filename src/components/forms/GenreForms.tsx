@@ -51,7 +51,7 @@ export const CreateGenreForms = () => {
   );
 };
 
-export const EditGenreForm = ({initialValues, id}: any) => {
+export const EditGenreForm = ({ refetch,initialValues, id}: any) => {
   const router = useRouter();
 
   const { mutateAsync } = trpc.useMutation(
@@ -76,6 +76,7 @@ export const EditGenreForm = ({initialValues, id}: any) => {
     mutateAsync({ id: id, name: data.name }).finally(() => {
       setSubmitting(false);
       resetForm();
+      refetch();
     });
   };
   return (

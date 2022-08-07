@@ -6,10 +6,10 @@ import { trpc } from 'utils/trpc';
 
 const EditGenre = () => {
   const id  = useRouter().query.id as string;
-  const {data} = trpc.useQuery(['genre.getById', {id}]);
+  const {data , refetch} = trpc.useQuery(['genre.getById', {id}]);
   return (
     <FormLayout title='update genre'>
-      {data&& <EditGenreForm initialValues={{...data}} />}
+      {data&& <EditGenreForm refetch={refetch} initialValues={{...data}} />}
     </FormLayout>
   )
 }

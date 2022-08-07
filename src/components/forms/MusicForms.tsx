@@ -5,6 +5,7 @@ import {
 import {
   CreateMusicForm,
   CreateMusicValidator,
+  UpdateMusicForm,
 } from "schemas";
 import { trpc } from "utils/trpc";
 import { postSuccess, postError } from "utils/res";
@@ -55,6 +56,70 @@ export const CreateMusicForms = () => {
       submit={submit}
       validator={CreateMusicValidator}
       submitBtn={<span>add music</span>}
+    />
+  );
+};
+
+export const EditMusicForm = ({
+  initialValue: val,
+  refetch,
+}: any) => {
+  const initVal = {
+    id: val.id,
+    title: val.title,
+    year: val.year,
+    musicLink: val.musicLink,
+    singers: val.SingerItem.map(({ singer }: any) => ({
+      value: singer.id,
+      label: singer.name,
+    })),
+    genres: val.GenreItem.map(({ genreId }: any) => ({
+      value: genreId.id,
+      label: genreId.name,
+    })),
+  };
+  const { mutateAsync } = trpc.useMutation(
+    ["music.update"],
+    {
+      onSuccess: () => {
+        postSuccess("music successfully updated");
+      },
+      onError: ({ message }) => {
+        postError(message);
+      },
+    }
+  );
+  const submit = (
+    data: CreateMusicForm,
+    {
+      setSubmitting,
+      resetForm,
+    }: FormikHelpers<CreateMusicForm>
+  ) => {
+    const res = {
+      id: val.id,
+      ...data,
+      singers: data.singers.map(({ value }) => ({
+        id: value,
+      })),
+      genres: data.genres.map(({ value }) => ({
+        id: value,
+      })),
+    };
+    
+    mutateAsync(res).finally(() => {
+      setSubmitting(false);
+      resetForm();
+      refetch();
+    });
+  };
+  return (
+    <Generator
+      validator={CreateMusicValidator}
+      fields={CREATE_MUSIC_FIELDS}
+      initialValues={initVal}
+      submit={submit}
+      submitBtn={<span>edit music</span>}
     />
   );
 };

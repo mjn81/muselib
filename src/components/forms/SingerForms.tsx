@@ -45,7 +45,7 @@ export const CreateSingerForms = () => {
   );
 };
 
-export const EditSingerForm = ({ initialValues,id }: {initialValues: any , id: string}) => {
+export const EditSingerForm = ({ initialValues,refetch }: any) => {
   const router = useRouter();
   const { mutateAsync } = trpc.useMutation(
     ["singer.update"],
@@ -66,9 +66,10 @@ export const EditSingerForm = ({ initialValues,id }: {initialValues: any , id: s
       resetForm,
     }: FormikHelpers<CreateSingerForm>
   ) => {
-    mutateAsync({ id: id, name: data.name }).finally(() => {
+    mutateAsync({ id: initialValues.id, name: data.name }).finally(() => {
       setSubmitting(false);
       resetForm();
+      refetch();
     });
   };
   return (

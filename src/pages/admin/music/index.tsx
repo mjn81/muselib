@@ -1,12 +1,22 @@
-import { SimpleBadge, Table } from "components";
+import { ButtonIcon, SimpleBadge, Table } from "components";
 import { ListLayout } from "layouts";
 import Link from "next/link";
 import React from "react";
 import { BiEdit } from "react-icons/bi";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { postError, postSuccess } from "utils/res";
 import { trpc } from "utils/trpc";
 
 const ManageMusic = () => {
-  const { data } = trpc.useQuery(["music.getAll"]);
+  const { data, refetch } = trpc.useQuery(["music.getAll"]);
+  const { mutateAsync } = trpc.useMutation(["music.delete"], {
+    onSuccess: () => {
+      postSuccess("music deleted");
+    },
+    onError: ({ message }) => {
+      postError(message);
+    }
+  });
   const musicColumns = React.useMemo(
     () => [
       {
@@ -34,20 +44,24 @@ const ManageMusic = () => {
         Cell: ({ value }: { value: string }) => value,
         cellClass: "text-sm font-medium text-gray-500",
       },
-      // {
-      //   title: "singers",
-      //   accessor: "SingerItem",
-      //   Cell: ({ value }: { value: any }) =>
-      //     value.toString(),
-      //   cellClass: "text-sm font-medium text-gray-500",
-      // },
-      // {
-      //   title: "genres",
-      //   accessor: "GenreItem",
-      //   Cell: ({ value }: { value: any }) =>
-      //     value.toString(),
-      //   cellClass: "text-sm font-medium text-gray-500",
-      // },
+      {
+        title: "singers",
+        accessor: "SingerItem",
+        Cell: ({ value }: { value: any }) =>
+          value
+            .map(({ singer }: any) => singer.name)
+            .join(", "),
+        cellClass: "text-sm font-medium text-gray-500",
+      },
+      {
+        title: "genres",
+        accessor: "GenreItem",
+        Cell: ({ value }: { value: any }) =>
+          value
+            .map(({ genreId }: any) => genreId.name)
+            .join(", "),
+        cellClass: "text-sm font-medium text-gray-500",
+      },
       {
         title: "uploader",
         accessor: "userId",
@@ -70,6 +84,24 @@ const ManageMusic = () => {
         ),
         cellClass:
           "text-2xl font-medium text-blue-400 cursor-pointer",
+      },
+      {
+        title: "delete",
+        Cell: ({ value }: { value: any }) => {
+          return (
+            <ButtonIcon
+              onClick={() =>
+                mutateAsync({ id: value.id }).then(() =>
+                  refetch()
+                )
+              }
+            >
+              <RiDeleteBin5Fill />
+            </ButtonIcon>
+          );
+        },
+        cellClass:
+          "text-2xl font-medium text-rose-500 cursor-pointer",
       },
     ],
     []
