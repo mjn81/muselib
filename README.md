@@ -6,6 +6,10 @@ a free userbase music platform for myself
 
 T3 stack
 
+## Done
+
+- [ ] phase 1 done
+
 ## Things to be done
 
 - [x] db models
