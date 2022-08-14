@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "connect": "pscale connect muselib --port 43127",
+    "studio": "prisma studio",
     "postinstall": "prisma generate",
     "format": "prettier --write ."
   },
