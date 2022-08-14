@@ -1,4 +1,5 @@
 import { Role } from '@prisma/client';
+import { useState } from 'react';
 import { trpc } from 'utils/trpc';
 import { FormFieldTypes } from './types';
 
@@ -70,9 +71,26 @@ export const CREATE_MUSIC_FIELDS = [
     placeholder: 'Please enter title',
   },
   {
-    fieldType: FormFieldTypes.input,
+    fieldType: FormFieldTypes.file,
+    fetcher: (file: File) => {
+      const [isLoading, setIsLoading] = useState(false);
+      const [isError, setIsError] = useState(false);
+      const [error, setError] = useState('');
+      const uploadFile = async (file: File) => {
+        setIsLoading(true);
+        setIsError(false);
+      };
+
+      return {
+        isLoading,
+        isError,
+        error,
+        uploadFile,
+        setIsLoading,
+        setIsError,
+      };
+    },
     name: 'musicLink',
-    type: 'text',
     placeholder: 'Please enter link',
   },
   {

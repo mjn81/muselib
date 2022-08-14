@@ -5,7 +5,6 @@ import {
 import {
   CreateMusicForm,
   CreateMusicValidator,
-  UpdateMusicForm,
 } from 'schemas';
 import { trpc } from 'utils/trpc';
 import { postSuccess, postError } from 'utils/res';

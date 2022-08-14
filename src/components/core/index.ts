@@ -6,3 +6,4 @@ export * from './Table';
 export * from './Badge';
 export * from './Select';
 export * from './Date';
+export * from './File';

@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   DateField,
+  FileDrop,
   Input,
   MultipleSelect,
   SelectField,
@@ -99,5 +100,7 @@ const FieldGenerator = ({
       return <DateField {...others} />;
     case FormFieldTypes.multiselect:
       return <MultipleSelect {...others} />;
+    case FormFieldTypes.file:
+      return <FileDrop setField={setField} {...others} />;
   }
 };
