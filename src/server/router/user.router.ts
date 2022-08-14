@@ -1,7 +1,7 @@
-import { Role } from "@prisma/client";
-import { TRPCError } from "@trpc/server";
+import { Role } from '@prisma/client';
+import { TRPCError } from '@trpc/server';
 
-import { MESSAGES } from "constants/index";
+import { MESSAGES } from 'constants/index';
 import {
   DeleteUserInput,
   LoginInput,
@@ -9,15 +9,15 @@ import {
   RegisterInput,
   UpdateUserInput,
   UserOutput,
-} from "schemas";
-import { roleBaseAuth } from "utils/auth";
-import { getEnv } from "utils/env";
-import { encrypt, verify } from "utils/hash";
-import { sign } from "utils/jwt";
-import { createRouter } from "./context";
+} from 'schemas';
+import { roleBaseAuth } from 'utils/auth';
+import { getEnv } from 'utils/env';
+import { encrypt, verify } from 'utils/hash';
+import { sign } from 'utils/jwt';
+import { createRouter } from './context';
 
 export const userRouter = createRouter()
-  .mutation("login", {
+  .mutation('login', {
     input: LoginInput,
     output: UserOutput,
     resolve: async ({ input, ctx }) => {
@@ -30,23 +30,23 @@ export const userRouter = createRouter()
       });
       if (!user)
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: MESSAGES["USER_NOT_FOUND"],
+          code: 'NOT_FOUND',
+          message: MESSAGES['USER_NOT_FOUND'],
         });
 
       const isValid = await verify(password, user.password);
 
       if (!isValid) {
         throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: MESSAGES["USER_WRONG_PASSWORD"],
+          code: 'BAD_REQUEST',
+          message: MESSAGES['USER_WRONG_PASSWORD'],
         });
       }
 
       const token = sign(
         { email: user.email, id: user.id },
-        getEnv("JWT_SECRET"),
-        getEnv("JWT_EXPIRATION")
+        getEnv('JWT_SECRET'),
+        getEnv('JWT_EXPIRATION')
       );
 
       return {
@@ -55,7 +55,7 @@ export const userRouter = createRouter()
       };
     },
   })
-  .mutation("register", {
+  .mutation('register', {
     input: RegisterInput,
     output: UserOutput,
     resolve: async ({ input, ctx }) => {
@@ -68,8 +68,8 @@ export const userRouter = createRouter()
       });
       if (user)
         throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: MESSAGES["USER_ALREADY_EXISTS"],
+          code: 'BAD_REQUEST',
+          message: MESSAGES['USER_ALREADY_EXISTS'],
         });
 
       const hashedPassword = await encrypt(password);
@@ -86,8 +86,8 @@ export const userRouter = createRouter()
 
       const token = sign(
         { email: newUser.email, id: newUser.id },
-        getEnv("JWT_SECRET"),
-        getEnv("JWT_EXPIRATION")
+        getEnv('JWT_SECRET'),
+        getEnv('JWT_EXPIRATION')
       );
 
       return {
@@ -96,27 +96,38 @@ export const userRouter = createRouter()
       };
     },
   })
-  .mutation("delete", {
+  .mutation('delete', {
     input: DeleteUserInput,
-    resolve: async ({ input,ctx }) => {
-      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+    resolve: async ({ input, ctx }) => {
+      await roleBaseAuth(ctx.user, ctx.prisma, [
+        Role.ADMIN,
+      ]);
       const { id } = input;
-      
+
       const user = await ctx.prisma.users.delete({
         where: {
           id: id,
-        }
+        },
       });
 
       return user;
-    }
+    },
   })
-  .mutation("update", {
+  .mutation('update', {
     input: UpdateUserInput,
     output: ProfileOutput,
     resolve: async ({ input, ctx }) => {
-      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
-      const { id, fullName, userName, email,role,profile } = input;
+      await roleBaseAuth(ctx.user, ctx.prisma, [
+        Role.ADMIN,
+      ]);
+      const {
+        id,
+        fullName,
+        userName,
+        email,
+        role,
+        profile,
+      } = input;
 
       const user = await ctx.prisma.users.update({
         where: {
@@ -127,7 +138,7 @@ export const userRouter = createRouter()
           userName,
           email,
           role,
-          profile
+          profile,
         },
       });
 
@@ -136,11 +147,11 @@ export const userRouter = createRouter()
         userName: user.userName,
         email: user.email,
         role: user.role,
-        profile: user.profile ?? "", 
+        profile: user.profile ?? '',
       };
-    }
+    },
   })
-  .query("me", {
+  .query('me', {
     output: ProfileOutput,
     resolve: async ({ ctx }) => {
       const user = await roleBaseAuth(ctx.user, ctx.prisma);
@@ -149,37 +160,42 @@ export const userRouter = createRouter()
         userName: user.userName,
         email: user.email,
         role: user.role,
-        profile: user.profile ?? "",
+        profile: user.profile ?? '',
       };
     },
   })
   // phase 2 : paginate data + add likes and ... data
-  .query("getAll", {
+  .query('getAll', {
     resolve: async ({ ctx }) => {
-      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+      await roleBaseAuth(ctx.user, ctx.prisma, [
+        Role.ADMIN,
+      ]);
 
       const users = await ctx.prisma.users.findMany({
         include: {
           _count: {
             select: {
-              Likes: true
-            }
-          }
+              Likes: true,
+            },
+          },
         },
       });
       return users;
-    }
+    },
   })
-  .query("getById", {
+  .query('getById', {
     input: DeleteUserInput,
-    resolve: async ({ input,ctx }) => {
-      await roleBaseAuth(ctx.user, ctx.prisma, [Role.ADMIN]);
+    resolve: async ({ input, ctx }) => {
+      await roleBaseAuth(ctx.user, ctx.prisma, [
+        Role.ADMIN,
+      ]);
       const { id } = input;
-      const users = await ctx.prisma.users.findUniqueOrThrow({
-        where: {
-          id: id,
-        },
-      }); 
+      const users =
+        await ctx.prisma.users.findUniqueOrThrow({
+          where: {
+            id: id,
+          },
+        });
       return users;
-    }
+    },
   });

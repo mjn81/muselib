@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 export const sign = (
   payload: { id: string; email: string },
@@ -20,10 +20,10 @@ export const getPayload = (
 ) => {
   try {
     const payload = jwt.verify(token, secret);
-    if (typeof payload === "string") return null;
+    if (typeof payload === 'string') return null;
     return payload;
   } catch (error) {
-    // phase 3 : logger 
+    // phase 3 : logger
     console.log(error);
     return null;
   }

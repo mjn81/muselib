@@ -1,6 +1,6 @@
-import { useFormikContext } from "formik";
-import { BiChevronDown } from "react-icons/bi";
-import Select from "react-select";
+import { useFormikContext } from 'formik';
+import { BiChevronDown } from 'react-icons/bi';
+import Select from 'react-select';
 
 type Props = {
   name: string;
@@ -24,7 +24,7 @@ export const SelectField = ({
     <Select
       name={name}
       value={options.find(({ value: v }) => v === value)}
-      className="w-full"
+      className='w-full'
       onChange={handelChange}
       options={options}
     />
@@ -50,7 +50,7 @@ export const MultipleSelect = ({
       isLoading={isLoading}
       name={name}
       value={values[name]}
-      className="w-full"
+      className='w-full'
       onChange={handleChange}
       options={options}
       {...others}

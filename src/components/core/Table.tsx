@@ -11,14 +11,14 @@ type Props = {
 
 export const Table = ({ columns, data }: Props) => {
   return (
-    <div className="inline-block shadow-xl min-w-full overflow-hidden align-middle border sm:rounded-xl">
-      <table className="min-w-full table-auto">
-        <thead className="bg-gray-50 border-b border-gray-200  text-left text-gray-500 uppercase">
-          <tr className="text-sm font-medium leading-4 tracking-wider ">
+    <div className='inline-block shadow-xl min-w-full overflow-hidden align-middle border sm:rounded-xl'>
+      <table className='min-w-full table-auto'>
+        <thead className='bg-gray-50 border-b border-gray-200  text-left text-gray-500 uppercase'>
+          <tr className='text-sm font-medium leading-4 tracking-wider '>
             {columns.map(({ title }, index) => (
               <th
                 key={`tbh_${index}`}
-                className="px-6 py-4"
+                className='px-6 py-4'
               >
                 {title}
               </th>
@@ -26,7 +26,7 @@ export const Table = ({ columns, data }: Props) => {
           </tr>
         </thead>
 
-        <tbody className="bg-white">
+        <tbody className='bg-white'>
           {data &&
             data.map((row) => (
               <tr key={row.id}>
@@ -37,16 +37,16 @@ export const Table = ({ columns, data }: Props) => {
                   ) => (
                     <td
                       key={`tbd_${index}_${row.id}`}
-                      className="px-6 py-4 whitespace-no-wrap"
+                      className='px-6 py-4 whitespace-no-wrap'
                     >
-                      <div className="flex items-center">
+                      <div className='flex items-center'>
                         <div className={cellClass}>
                           {Cell({
                             value: accessor
                               ? row[accessor]
                               : row,
                             action: action,
-                          }) || "_"}
+                          }) || '_'}
                         </div>
                       </div>
                     </td>

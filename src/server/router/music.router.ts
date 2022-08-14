@@ -1,15 +1,15 @@
-import { Role } from "@prisma/client";
-import { resolve } from "path";
+import { Role } from '@prisma/client';
+import { resolve } from 'path';
 import {
   CreateMusicInput,
   DeleteMusicInput,
   UpdateMusicInput,
-} from "schemas";
-import { roleBaseAuth } from "utils/auth";
-import { createRouter } from "./context";
+} from 'schemas';
+import { roleBaseAuth } from 'utils/auth';
+import { createRouter } from './context';
 
 export const musicRouter = createRouter()
-  .mutation("create", {
+  .mutation('create', {
     input: CreateMusicInput,
     resolve: async ({ input, ctx }) => {
       const { title, year, singers, musicLink, genres } =
@@ -48,7 +48,7 @@ export const musicRouter = createRouter()
       return music;
     },
   })
-  .mutation("update", {
+  .mutation('update', {
     input: UpdateMusicInput,
     resolve: async ({ input, ctx }) => {
       await roleBaseAuth(ctx.user, ctx.prisma, [
@@ -106,7 +106,7 @@ export const musicRouter = createRouter()
       return music;
     },
   })
-  .mutation("delete", {
+  .mutation('delete', {
     input: DeleteMusicInput,
     resolve: async ({ input, ctx }) => {
       const { id } = input;
@@ -121,7 +121,7 @@ export const musicRouter = createRouter()
       return music;
     },
   })
-  .query("getAll", {
+  .query('getAll', {
     resolve: async ({ ctx }) => {
       const musics = await ctx.prisma.musics.findMany({
         select: {
@@ -163,7 +163,7 @@ export const musicRouter = createRouter()
       return musics;
     },
   })
-  .query("getById", {
+  .query('getById', {
     input: DeleteMusicInput,
     resolve: async ({ input, ctx }) => {
       const { id } = input;

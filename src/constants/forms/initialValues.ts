@@ -1,27 +1,26 @@
 export const LOGIN_INITIAL = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 export const REGISTER_INITIAL = {
-  fullName: "",
-  userName: "",
-  email: "",
-  password: "",
-  profile: ""
+  fullName: '',
+  userName: '',
+  email: '',
+  password: '',
+  profile: '',
 };
 
 export const CREATE_GENRE_INITIAL = {
-  name: "",
-}
+  name: '',
+};
 export const CREATE_SINGER_INITIAL = {
-  name: "",
-}
+  name: '',
+};
 export const CREATE_MUSIC_INITIAL = {
-  title: "",
+  title: '',
   year: new Date(),
-  musicLink: "",
+  musicLink: '',
   genres: [],
   singers: [],
-  
-}
+};

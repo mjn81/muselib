@@ -1,10 +1,10 @@
-import { Props } from "constants/index";
+import { Props } from 'constants/index';
 
 export const Button = (props: Props) => {
   const { children, ...others } = props;
   return (
     <button
-      className="
+      className='
       capitalize
       rounded-xl py-3 px-6 outline-2 outline-extra_light_purple
       w-full 
@@ -13,7 +13,7 @@ export const Button = (props: Props) => {
       transition-all ease-in-out duration-200 
       hover:bg-purple-600
       disabled:bg-extra_light_purple
-      "
+      '
       {...others}
     >
       {children}
@@ -25,10 +25,10 @@ export const ButtonIcon = (props: Props) => {
   const { children, ...others } = props;
   return (
     <button
-      className="border-none outline-none bg-transparent disabled:opacity-60 disabled:cursor-not-allowed"
+      className='border-none outline-none bg-transparent disabled:opacity-60 disabled:cursor-not-allowed'
       {...others}
     >
       {children}
     </button>
   );
-}
+};

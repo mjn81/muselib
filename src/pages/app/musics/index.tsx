@@ -1,10 +1,8 @@
-import { AppLayout } from 'layouts'
-import React from 'react'
+import { AppLayout } from 'layouts';
+import React from 'react';
 
 const Musics = () => {
-  return (
-    <AppLayout title="musics"></AppLayout>
-  )
-}
+  return <AppLayout title='musics'></AppLayout>;
+};
 
-export default Musics
+export default Musics;

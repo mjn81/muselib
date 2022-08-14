@@ -1,10 +1,10 @@
-import { EDIT_USER_FIELDS } from "constants/index";
-import { FormikHelpers } from "formik";
-import { useRouter } from "next/router";
-import { ProfileOutput, UpdateUserForm } from "schemas";
-import { postError, postSuccess } from "utils/res";
-import { trpc } from "utils/trpc";
-import { Generator } from "./Generator";
+import { EDIT_USER_FIELDS } from 'constants/index';
+import { FormikHelpers } from 'formik';
+import { useRouter } from 'next/router';
+import { ProfileOutput, UpdateUserForm } from 'schemas';
+import { postError, postSuccess } from 'utils/res';
+import { trpc } from 'utils/trpc';
+import { Generator } from './Generator';
 
 export const EditUserForm = ({
   initialValues,
@@ -15,11 +15,11 @@ export const EditUserForm = ({
 }) => {
   const router = useRouter();
   const { mutateAsync } = trpc.useMutation(
-    ["user.update"],
+    ['user.update'],
     {
       onSuccess: () => {
-        postSuccess("user updated");
-        router.push("/admin/user");
+        postSuccess('user updated');
+        router.push('/admin/user');
       },
       onError: ({ message }) => {
         postError(message);
@@ -33,7 +33,6 @@ export const EditUserForm = ({
       resetForm,
     }: FormikHelpers<UpdateUserForm>
   ) => {
-    
     mutateAsync({ id: id, ...data }).finally(() => {
       setSubmitting(false);
       resetForm();

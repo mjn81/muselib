@@ -1,28 +1,28 @@
-import { ButtonIcon, SimpleBadge, Table } from "components";
-import { ListLayout } from "layouts";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { BiEdit } from "react-icons/bi";
-import { RiDeleteBin5Fill } from "react-icons/ri";
-import { postError, postSuccess } from "utils/res";
-import { trpc } from "utils/trpc";
+import { ButtonIcon, SimpleBadge, Table } from 'components';
+import { ListLayout } from 'layouts';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { BiEdit } from 'react-icons/bi';
+import { RiDeleteBin5Fill } from 'react-icons/ri';
+import { postError, postSuccess } from 'utils/res';
+import { trpc } from 'utils/trpc';
 
 // phase 2 : add create user for admin as well!!
 
 const ManageUser = () => {
   const router = useRouter();
-  const { data, refetch } = trpc.useQuery(["user.getAll"], {
+  const { data, refetch } = trpc.useQuery(['user.getAll'], {
     onError: ({ message }) => {
       postError(message);
-      router.push("/app");
-    }
+      router.push('/app');
+    },
   });
   const { mutateAsync } = trpc.useMutation(
-    ["user.delete"],
+    ['user.delete'],
     {
       onSuccess: () => {
-        postSuccess("Singer removed successfully");
+        postSuccess('Singer removed successfully');
       },
       onError: ({ message }) => {
         postError(message);
@@ -32,69 +32,69 @@ const ManageUser = () => {
   const UserColumns = React.useMemo(
     () => [
       {
-        title: "id",
-        accessor: "id",
+        title: 'id',
+        accessor: 'id',
         Cell: ({ value }: { value: string }) =>
-          value.slice(0, 5) + "...",
-        cellClass: "text-sm font-medium text-gray-900",
+          value.slice(0, 5) + '...',
+        cellClass: 'text-sm font-medium text-gray-900',
       },
       {
-        title: "name",
-        accessor: "fullName",
+        title: 'name',
+        accessor: 'fullName',
         Cell: ({ value }: { value: string }) => value,
-        cellClass: "text-sm font-medium text-gray-500",
+        cellClass: 'text-sm font-medium text-gray-500',
       },
       {
-        title: "username",
-        accessor: "userName",
+        title: 'username',
+        accessor: 'userName',
         Cell: ({ value }: { value: string }) => value,
-        cellClass: "text-sm font-medium text-gray-500",
+        cellClass: 'text-sm font-medium text-gray-500',
       },
       {
-        title: "email",
-        accessor: "email",
+        title: 'email',
+        accessor: 'email',
         Cell: ({ value }: { value: string }) => value,
-        cellClass: "text-sm font-medium text-gray-500",
+        cellClass: 'text-sm font-medium text-gray-500',
       },
       {
-        title: "password",
-        accessor: "password",
+        title: 'password',
+        accessor: 'password',
         Cell: ({ value }: { value: string }) =>
-          value.slice(0, 5) + "...",
-        cellClass: "text-sm font-medium text-gray-500",
+          value.slice(0, 5) + '...',
+        cellClass: 'text-sm font-medium text-gray-500',
       },
       {
-        title: "profile",
-        accessor: "profile",
+        title: 'profile',
+        accessor: 'profile',
         Cell: ({ value }: { value: string }) => value,
-        cellClass: "text-sm font-medium text-gray-500",
+        cellClass: 'text-sm font-medium text-gray-500',
       },
       {
-        title: "role",
-        accessor: "role",
+        title: 'role',
+        accessor: 'role',
         Cell: ({ value }: { value: string }) => (
           <SimpleBadge>{value}</SimpleBadge>
         ),
       },
       {
-        title: "likes",
-        accessor: "_count",
+        title: 'likes',
+        accessor: '_count',
         Cell: ({ value }: { value: { Likes: number } }) => (
           <SimpleBadge>{value.Likes}</SimpleBadge>
         ),
       },
       {
-        title: "edit",
+        title: 'edit',
         Cell: ({ value }: { value: any }) => (
           <Link href={`user/${value.id}`}>
             <BiEdit />
           </Link>
         ),
         cellClass:
-          "text-2xl font-medium text-blue-400 cursor-pointer",
+          'text-2xl font-medium text-blue-400 cursor-pointer',
       },
       {
-        title: "delete",
+        title: 'delete',
         Cell: ({ value }: { value: any }) => {
           return (
             <ButtonIcon
@@ -109,13 +109,13 @@ const ManageUser = () => {
           );
         },
         cellClass:
-          "text-2xl font-medium text-rose-500 cursor-pointer",
+          'text-2xl font-medium text-rose-500 cursor-pointer',
       },
     ],
     [mutateAsync, refetch]
   );
   return (
-    <ListLayout title="manage users" btn={{ hidden: true }}>
+    <ListLayout title='manage users' btn={{ hidden: true }}>
       <Table columns={UserColumns} data={data} />
     </ListLayout>
   );

@@ -3,5 +3,4 @@ export enum FormFieldTypes {
   select,
   multiselect,
   date,
-
-} 
+}

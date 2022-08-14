@@ -1,10 +1,10 @@
 // src/server/router/context.ts
-import * as trpc from "@trpc/server";
-import * as trpcNext from "@trpc/server/adapters/next";
+import * as trpc from '@trpc/server';
+import * as trpcNext from '@trpc/server/adapters/next';
 
-import { prisma } from "server/db/client";
-import { getEnv } from "utils/env";
-import { getPayload } from "utils/jwt";
+import { prisma } from 'server/db/client';
+import { getEnv } from 'utils/env';
+import { getPayload } from 'utils/jwt';
 
 export const createContext = async (
   opts?: trpcNext.CreateNextContextOptions
@@ -19,7 +19,7 @@ export const createContext = async (
       prisma,
       user: undefined,
     };
-  const token_data = token.split(" ")[1];
+  const token_data = token.split(' ')[1];
   if (!token_data) {
     return {
       req,
@@ -30,7 +30,7 @@ export const createContext = async (
   }
   const payload = getPayload(
     token_data,
-    getEnv("JWT_SECRET")
+    getEnv('JWT_SECRET')
   );
   if (!payload) {
     return {

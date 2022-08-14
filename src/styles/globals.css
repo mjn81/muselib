@@ -38,7 +38,9 @@
   @apply bg-light_purple;
 }
 
-.top-art:hover h5,.top-art:hover h4,.top-art:hover p {
+.top-art:hover h5,
+.top-art:hover h4,
+.top-art:hover p {
   @apply text-white transition-all;
 }
 

@@ -1,6 +1,6 @@
-import { Role } from "@prisma/client";
-import Link from "next/link";
-import { IconType } from "react-icons";
+import { Role } from '@prisma/client';
+import Link from 'next/link';
+import { IconType } from 'react-icons';
 
 type Props = {
   item: {
@@ -12,14 +12,14 @@ type Props = {
       icon: IconType;
       path: string;
     }[];
-  },
+  };
   pathname: string;
 };
-const NavItem = ({item, pathname}: Props) => {
+const NavItem = ({ item, pathname }: Props) => {
   return (
-  <div>
-      <section className="mb-7">
-        <h5 className="font-bold text-sm mb-4 capitalize">
+    <div>
+      <section className='mb-7'>
+        <h5 className='font-bold text-sm mb-4 capitalize'>
           {item.title}
         </h5>
         <ul>
@@ -27,9 +27,9 @@ const NavItem = ({item, pathname}: Props) => {
             <li
               className={
                 (item.path === pathname
-                  ? "text-white"
-                  : "text-gray-500") +
-                " flex items-center justify-left py-2 hover:text-white transition-all capitalize"
+                  ? 'text-white'
+                  : 'text-gray-500') +
+                ' flex items-center justify-left py-2 hover:text-white transition-all capitalize'
               }
               key={`side_${item.name}`}
             >

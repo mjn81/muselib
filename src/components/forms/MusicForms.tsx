@@ -1,23 +1,23 @@
 import {
   CREATE_MUSIC_FIELDS,
   CREATE_MUSIC_INITIAL,
-} from "constants/index";
+} from 'constants/index';
 import {
   CreateMusicForm,
   CreateMusicValidator,
   UpdateMusicForm,
-} from "schemas";
-import { trpc } from "utils/trpc";
-import { postSuccess, postError } from "utils/res";
-import { Generator } from "./Generator";
-import { FormikHelpers } from "formik";
+} from 'schemas';
+import { trpc } from 'utils/trpc';
+import { postSuccess, postError } from 'utils/res';
+import { Generator } from './Generator';
+import { FormikHelpers } from 'formik';
 
 export const CreateMusicForms = () => {
   const { mutateAsync } = trpc.useMutation(
-    ["music.create"],
+    ['music.create'],
     {
       onSuccess: () => {
-        postSuccess("music created successfully");
+        postSuccess('music created successfully');
       },
       onError: ({ message }) => {
         postError(message);
@@ -79,10 +79,10 @@ export const EditMusicForm = ({
     })),
   };
   const { mutateAsync } = trpc.useMutation(
-    ["music.update"],
+    ['music.update'],
     {
       onSuccess: () => {
-        postSuccess("music successfully updated");
+        postSuccess('music successfully updated');
       },
       onError: ({ message }) => {
         postError(message);
@@ -106,7 +106,7 @@ export const EditMusicForm = ({
         id: value,
       })),
     };
-    
+
     mutateAsync(res).finally(() => {
       setSubmitting(false);
       resetForm();

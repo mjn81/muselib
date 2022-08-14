@@ -1,5 +1,5 @@
-import { ROLES } from "constants/index";
-import { z } from "zod";
+import { ROLES } from 'constants/index';
+import { z } from 'zod';
 
 export const RegisterInput = z.object({
   fullName: z.string(),
@@ -10,7 +10,7 @@ export const RegisterInput = z.object({
 
 export type RegisterInputForm = z.infer<
   typeof RegisterInput
-  >;
+>;
 
 export const LoginInput = z.object({
   email: z.string().email(),
@@ -24,7 +24,7 @@ export const UserOutput = z.object({
   token: z.string(),
 });
 
-// phase 2: adding image profile handler 
+// phase 2: adding image profile handler
 
 export const ProfileOutput = z.object({
   fullName: z.string(),
@@ -49,7 +49,7 @@ export const GetUserOutput = z.object({
 
 export const DeleteUserInput = z.object({
   id: z.string(),
-})
+});
 
 export const UpdateUserInput = z.object({
   id: z.string(),
@@ -58,8 +58,6 @@ export const UpdateUserInput = z.object({
   email: z.string().email(),
   role: z.enum(ROLES),
   profile: z.string(),
-});  
+});
 
 export type UpdateUserForm = z.infer<typeof ProfileOutput>;
-
-

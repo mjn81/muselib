@@ -1,10 +1,12 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const CreateSingerInput = z.object({
   name: z.string(),
 });
 
-export type CreateSingerForm = z.infer<typeof CreateSingerInput>;
+export type CreateSingerForm = z.infer<
+  typeof CreateSingerInput
+>;
 
 export const CreateSingerOutput = z.object({
   id: z.string(),

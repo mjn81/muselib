@@ -1,4 +1,4 @@
-import argon from "argon2";
+import argon from 'argon2';
 
 export const encrypt = async (password: string) => {
   return await argon.hash(password);

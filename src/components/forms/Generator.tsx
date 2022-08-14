@@ -5,14 +5,14 @@ import {
   Input,
   MultipleSelect,
   SelectField,
-} from "components/core";
+} from 'components/core';
 import {
   ALERT_TYPES,
   FormFieldTypes,
-} from "constants/index";
-import { Field, Form, Formik } from "formik";
-import { ZodType, ZodTypeDef } from "zod";
-import { toFormikValidationSchema } from "zod-formik-adapter";
+} from 'constants/index';
+import { Field, Form, Formik } from 'formik';
+import { ZodType, ZodTypeDef } from 'zod';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 type Props = {
   submit: (data: any, helpers: any) => any;
@@ -44,12 +44,8 @@ export const Generator = ({
       onSubmit={submit}
       enableReinitialize={true}
     >
-      {({
-        isSubmitting,
-        errors,
-        setFieldValue,
-      }) => (
-        <Form className="w-full py-6 flex flex-col space-y-4 items-center justify-center">
+      {({ isSubmitting, errors, setFieldValue }) => (
+        <Form className='w-full py-6 flex flex-col space-y-4 items-center justify-center'>
           {Object.values(errors).length > 0 && (
             <Alert type={ALERT_TYPES.ERROR}>
               {Object.values(errors).map((error, index) => (
@@ -67,7 +63,7 @@ export const Generator = ({
               {...other}
             />
           ))}
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type='submit' disabled={isSubmitting}>
             {submitBtn}
           </Button>
         </Form>
@@ -100,8 +96,8 @@ const FieldGenerator = ({
         />
       );
     case FormFieldTypes.date:
-      return <DateField {...others} />
+      return <DateField {...others} />;
     case FormFieldTypes.multiselect:
-      return <MultipleSelect {...others} />
+      return <MultipleSelect {...others} />;
   }
 };

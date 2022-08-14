@@ -1,23 +1,20 @@
 import {
   CREATE_GENRE_INITIAL,
   GENRE_FIELDS,
-} from "constants/index";
-import { FormikHelpers } from "formik";
-import { useRouter } from "next/router";
-import {
-  CreateGenreForm,
-  CreateGenreInput,
-} from "schemas";
-import { postError, postSuccess } from "utils/res";
-import { trpc } from "utils/trpc";
-import { Generator } from "./Generator";
+} from 'constants/index';
+import { FormikHelpers } from 'formik';
+import { useRouter } from 'next/router';
+import { CreateGenreForm, CreateGenreInput } from 'schemas';
+import { postError, postSuccess } from 'utils/res';
+import { trpc } from 'utils/trpc';
+import { Generator } from './Generator';
 
 export const CreateGenreForms = () => {
   const { mutateAsync } = trpc.useMutation(
-    ["genre.create"],
+    ['genre.create'],
     {
       onSuccess: () => {
-        postSuccess("genre created");
+        postSuccess('genre created');
       },
       onError: ({ message }) => {
         postError(message);
@@ -51,15 +48,19 @@ export const CreateGenreForms = () => {
   );
 };
 
-export const EditGenreForm = ({ refetch,initialValues, id}: any) => {
+export const EditGenreForm = ({
+  refetch,
+  initialValues,
+  id,
+}: any) => {
   const router = useRouter();
 
   const { mutateAsync } = trpc.useMutation(
-    ["genre.update"],
+    ['genre.update'],
     {
       onSuccess: () => {
-        postSuccess("genre updated");
-        router.push("/admin/genre");
+        postSuccess('genre updated');
+        router.push('/admin/genre');
       },
       onError: ({ message }) => {
         postError(message);

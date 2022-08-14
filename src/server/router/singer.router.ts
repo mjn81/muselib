@@ -1,15 +1,15 @@
-import { Role } from "@prisma/client";
+import { Role } from '@prisma/client';
 import {
   CreateSingerInput,
   CreateSingerOutput,
   GetSingerByIdInput,
   GetSingerOutput,
-} from "schemas";
-import { roleBaseAuth } from "utils/auth";
-import { createRouter } from "./context";
+} from 'schemas';
+import { roleBaseAuth } from 'utils/auth';
+import { createRouter } from './context';
 
 export const singerRouter = createRouter()
-  .mutation("create", {
+  .mutation('create', {
     input: CreateSingerInput,
     output: CreateSingerOutput,
     resolve: async ({ input, ctx }) => {
@@ -25,7 +25,7 @@ export const singerRouter = createRouter()
       return singer;
     },
   })
-  .mutation("update", {
+  .mutation('update', {
     input: CreateSingerOutput,
     output: CreateSingerOutput,
     resolve: async ({ input, ctx }) => {
@@ -41,11 +41,11 @@ export const singerRouter = createRouter()
           name,
         },
       });
-      
+
       return singer;
     },
   })
-  .mutation("delete", {
+  .mutation('delete', {
     input: GetSingerByIdInput,
     output: CreateSingerOutput,
     resolve: async ({ input, ctx }) => {
@@ -61,14 +61,14 @@ export const singerRouter = createRouter()
       return singer;
     },
   })
-  .query("getAll", {
+  .query('getAll', {
     output: GetSingerOutput,
     resolve: async ({ ctx }) => {
       const singers = await ctx.prisma.singers.findMany();
       return singers;
     },
   })
-  .query("getById", {
+  .query('getById', {
     input: GetSingerByIdInput,
     resolve: async ({ input, ctx }) => {
       const { id } = input;

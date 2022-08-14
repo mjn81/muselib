@@ -1,15 +1,15 @@
-import { Role } from "@prisma/client";
+import { Role } from '@prisma/client';
 import {
   CreateGenreInput,
   CreateGenreOutput,
   GetGenreByIdInput,
   GetGenreOutput,
-} from "schemas";
-import { roleBaseAuth } from "utils/auth";
-import { createRouter } from "./context";
+} from 'schemas';
+import { roleBaseAuth } from 'utils/auth';
+import { createRouter } from './context';
 
 export const genreRouter = createRouter()
-  .mutation("create", {
+  .mutation('create', {
     input: CreateGenreInput,
     output: CreateGenreOutput,
     resolve: async ({ input, ctx }) => {
@@ -25,7 +25,7 @@ export const genreRouter = createRouter()
       return genre;
     },
   })
-  .mutation("update", {
+  .mutation('update', {
     input: CreateGenreOutput,
     output: CreateGenreOutput,
     resolve: async ({ input, ctx }) => {
@@ -43,7 +43,8 @@ export const genreRouter = createRouter()
       });
       return genre;
     },
-  }).mutation("delete", {
+  })
+  .mutation('delete', {
     input: GetGenreByIdInput,
     output: CreateGenreOutput,
     resolve: async ({ input, ctx }) => {
@@ -57,16 +58,16 @@ export const genreRouter = createRouter()
         },
       });
       return genre;
-    }
+    },
   })
-  .query("getAll", {
+  .query('getAll', {
     output: GetGenreOutput,
     resolve: async ({ ctx }) => {
       const genres = await ctx.prisma.genres.findMany();
       return genres;
     },
   })
-  .query("getById", {
+  .query('getById', {
     input: GetGenreByIdInput,
     resolve: async ({ input, ctx }) => {
       const { id } = input;

@@ -1,38 +1,43 @@
 import {
   CREATE_SINGER_INITIAL,
   SINGER_FIELDS,
-} from "constants/index";
-import { FormikHelpers } from "formik";
-import { useRouter } from "next/router";
-import React from "react";
-import { CreateSingerForm, CreateSingerInput } from "schemas";
-import { postError, postSuccess } from "utils/res";
-import { trpc } from "utils/trpc";
-import { Generator } from "./Generator";
+} from 'constants/index';
+import { FormikHelpers } from 'formik';
+import { useRouter } from 'next/router';
+import React from 'react';
+import {
+  CreateSingerForm,
+  CreateSingerInput,
+} from 'schemas';
+import { postError, postSuccess } from 'utils/res';
+import { trpc } from 'utils/trpc';
+import { Generator } from './Generator';
 
 export const CreateSingerForms = () => {
-  const { mutateAsync } = trpc.useMutation(["singer.create"], {
-    onSuccess: () => {
-      postSuccess("singer created");
-    },
-    onError: ({ message }) => {
-      postError(message);
-
+  const { mutateAsync } = trpc.useMutation(
+    ['singer.create'],
+    {
+      onSuccess: () => {
+        postSuccess('singer created');
+      },
+      onError: ({ message }) => {
+        postError(message);
+      },
     }
-  });
+  );
 
-   const submit = (
-     data: CreateSingerForm,
-     {
-       setSubmitting,
-       resetForm,
-     }: FormikHelpers<CreateSingerForm>
-   ) => {
-     mutateAsync(data).finally(() => {
-       setSubmitting(false);
-       resetForm();
-     });
-   };
+  const submit = (
+    data: CreateSingerForm,
+    {
+      setSubmitting,
+      resetForm,
+    }: FormikHelpers<CreateSingerForm>
+  ) => {
+    mutateAsync(data).finally(() => {
+      setSubmitting(false);
+      resetForm();
+    });
+  };
 
   return (
     <Generator
@@ -45,14 +50,17 @@ export const CreateSingerForms = () => {
   );
 };
 
-export const EditSingerForm = ({ initialValues,refetch }: any) => {
+export const EditSingerForm = ({
+  initialValues,
+  refetch,
+}: any) => {
   const router = useRouter();
   const { mutateAsync } = trpc.useMutation(
-    ["singer.update"],
+    ['singer.update'],
     {
       onSuccess: () => {
-        postSuccess("singer updated");
-        router.push("/admin/singer");
+        postSuccess('singer updated');
+        router.push('/admin/singer');
       },
       onError: ({ message }) => {
         postError(message);
@@ -66,7 +74,10 @@ export const EditSingerForm = ({ initialValues,refetch }: any) => {
       resetForm,
     }: FormikHelpers<CreateSingerForm>
   ) => {
-    mutateAsync({ id: initialValues.id, name: data.name }).finally(() => {
+    mutateAsync({
+      id: initialValues.id,
+      name: data.name,
+    }).finally(() => {
       setSubmitting(false);
       resetForm();
       refetch();

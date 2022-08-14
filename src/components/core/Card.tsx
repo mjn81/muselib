@@ -1,4 +1,4 @@
-import { Props, PropsWithClass } from "constants/index";
+import { Props, PropsWithClass } from 'constants/index';
 
 export const Card = (props: PropsWithClass) => {
   const { children, className, ...others } = props;
