@@ -107,7 +107,7 @@ const ManageMusic = () => {
           'text-2xl font-medium text-rose-500 cursor-pointer',
       },
     ],
-    []
+    [mutateAsync, refetch]
   );
 
   return (
