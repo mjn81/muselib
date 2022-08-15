@@ -7,8 +7,7 @@ type Props = {
 };
 
 export const DateField = ({ name, ...others }: Props) => {
-  const { values, setFieldValue }: { [inp: string]: any } =
-    useFormikContext();
+  const { values, setFieldValue }: any = useFormikContext();
   const handleChange = (ev: any) => {
     setFieldValue(name, new Date(ev.currentTarget.value));
   };

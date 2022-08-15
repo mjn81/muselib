@@ -7,3 +7,4 @@ export * from './Badge';
 export * from './Select';
 export * from './Date';
 export * from './File';
+export * from './Progress';

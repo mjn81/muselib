@@ -101,6 +101,6 @@ const FieldGenerator = ({
     case FormFieldTypes.multiselect:
       return <MultipleSelect {...others} />;
     case FormFieldTypes.file:
-      return <FileDrop setField={setField} {...others} />;
+      return <FileDrop {...others} />;
   }
 };

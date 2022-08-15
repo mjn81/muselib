@@ -1,5 +1,6 @@
 import { Role } from '@prisma/client';
-import { useState } from 'react';
+import { deleteFile, uploadFile } from 'helpers';
+import { getEnv } from 'utils/env';
 import { trpc } from 'utils/trpc';
 import { FormFieldTypes } from './types';
 
@@ -72,26 +73,32 @@ export const CREATE_MUSIC_FIELDS = [
   },
   {
     fieldType: FormFieldTypes.file,
-    fetcher: (file: File) => {
-      const [isLoading, setIsLoading] = useState(false);
-      const [isError, setIsError] = useState(false);
-      const [error, setError] = useState('');
-      const uploadFile = async (file: File) => {
-        setIsLoading(true);
-        setIsError(false);
-      };
-
-      return {
-        isLoading,
-        isError,
-        error,
-        uploadFile,
-        setIsLoading,
-        setIsError,
-      };
+    fetcher: (
+      file: File,
+      setProgress: (progress: number) => void
+    ) => {
+      const formData = new FormData();
+      formData.append('name', file.name);
+      formData.append('file', file);
+      formData.append(
+        'category',
+        process.env.NEXT_PUBLIC_MJOLNIR_CATEGORY_MUSIC ?? ''
+      );
+      return uploadFile(
+        process.env.NEXT_PUBLIC_MJOLNIR_URL ?? '',
+        process.env.NEXT_PUBLIC_MJOLNIR_TOKEN ?? '',
+        formData,
+        setProgress
+      );
+    },
+    deleter: (id: string) => {
+      return deleteFile(
+        `${process.env.NEXT_PUBLIC_MJOLNIR_URL}/${id}`,
+        process.env.NEXT_PUBLIC_MJOLNIR_TOKEN ?? ''
+      );
     },
     name: 'musicLink',
-    placeholder: 'Please enter link',
+    accessor: 'data.id',
   },
   {
     fieldType: FormFieldTypes.date,
