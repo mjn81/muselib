@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { BsSoundwave } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
 import {
@@ -72,10 +72,16 @@ export const Table = ({ columns, data }: Props) => {
 
 type MusicProps = {
   data: any[] | undefined;
+  options: {
+    onClick?: (e: any) => void;
+    children: ReactNode;
+  }[];
 };
 
-export const MusicTable = ({ data }: MusicProps) => {
-  const [open, setOpen] = useState(false);
+export const MusicTable = ({
+  data,
+  options,
+}: MusicProps) => {
   return (
     <table className='w-full table-fixed'>
       <thead className='text-left capitalize hidden'>
@@ -166,13 +172,12 @@ export const MusicTable = ({ data }: MusicProps) => {
                 </section>
               </td>
               <td className='w-fit'>
-                <section
-                  onClick={() => setOpen(!open)}
-                  className='cursor-pointer flex items-center justify-center text-gray-600 text-lg'
+                <TooltipDropdown
+                  options={options}
+                  className='cursor-pointer text-gray-600 text-lg'
                 >
                   <MdMoreVert />
-                </section>
-                <TooltipDropdown open={open} />
+                </TooltipDropdown>
               </td>
             </tr>
           ))}

@@ -9,10 +9,24 @@ const Musics = () => {
       postError(message);
     },
   });
+  const options = [
+    {
+      children: 'edit',
+      onClick: () => {
+        console.log('edit');
+      },
+    },
+    {
+      children: 'delete',
+      onClick: () => {
+        console.log('delete');
+      },
+    },
+  ];
   return (
     <AppLayout title='musics'>
       <section className='flex space-x-10'>
-        <MusicTable data={data} />
+        <MusicTable data={data} options={options} />
         <AppSideBar />
       </section>
     </AppLayout>
