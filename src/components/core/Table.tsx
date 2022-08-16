@@ -1,9 +1,12 @@
 import Image from 'next/image';
+import { useState } from 'react';
+import { BsSoundwave } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
 import {
   MdMoreVert,
   MdPlayCircleFilled,
 } from 'react-icons/md';
+import { TooltipDropdown } from './Dropdown';
 
 type Props = {
   columns: {
@@ -67,59 +70,112 @@ export const Table = ({ columns, data }: Props) => {
   );
 };
 
-export const MusicTable = () => {
+type MusicProps = {
+  data: any[] | undefined;
+};
+
+export const MusicTable = ({ data }: MusicProps) => {
+  const [open, setOpen] = useState(false);
   return (
     <table className='w-full table-fixed'>
       <thead className='text-left capitalize hidden'>
         <tr>
           <th>id</th>
-          <th>name</th>
-          <th>phone</th>
+          <th>music info</th>
+          <th>music</th>
           <th>options</th>
         </tr>
       </thead>
-      <tbody>
-        <tr className='flex items-center space-x-6'>
-          <td className='text-lg text-gray-500'>1</td>
-          <td className='flex items-center flex-1 space-x-4'>
-            <section className='bg-slate-300 overflow-hidden rounded-xl'>
-              <Image
-                src='https://via.placeholder.com/150'
-                alt='alt'
-                width={60}
-                height={50}
-              />
-            </section>
-            <section className='space-y-1'>
-              <h5 className='font-medium text-gray-800 capitalize'>
-                musicName
-              </h5>
-              <span className='text-sm flex items-center text-gray-400 space-x-3'>
-                <div className='flex items-center space-x-1'>
-                  <FaUserCircle />
-                  <p>author</p>
-                  <p>.</p>
-                </div>
-                <div className='flex items-center space-x-1'>
-                  <FaUserCircle />
-                  <p>author</p>
-                  <p>.</p>
-                </div>
-              </span>
-            </section>
-          </td>
+      <tbody className='space-y-7'>
+        {data &&
+          data.map((row, index) => (
+            <tr
+              key={`mu_${row.id}`}
+              className='flex items-center space-x-6'
+            >
+              <td className='font-medium text-gray-400'>
+                {(index + 1).toLocaleString('en-US', {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}
+              </td>
+              <td className='flex items-center flex-1 space-x-4'>
+                <section className='bg-slate-300 overflow-hidden rounded-xl'>
+                  <Image
+                    src='https://via.placeholder.com/150'
+                    alt='alt'
+                    width={60}
+                    height={50}
+                  />
+                </section>
+                <section className='space-y-1'>
+                  <h5 className='font-medium text-gray-800 capitalize'>
+                    {row.title}
+                  </h5>
+                  <span className='text-sm flex items-center text-gray-400 space-x-3'>
+                    <div className='flex items-center space-x-1'>
+                      <FaUserCircle />
+                      {row.SingerItem.map(
+                        (
+                          {
+                            singer,
+                          }: { singer: { name: string } },
+                          index: number
+                        ) => (
+                          <p
+                            key={`sing_${row.id}_${index}`}
+                          >
+                            {singer.name +
+                              (index !==
+                              row.SingerItem.length - 1
+                                ? ' . '
+                                : '')}
+                          </p>
+                        )
+                      )}
+                    </div>
+                    <div className='flex items-center space-x-1'>
+                      <BsSoundwave />
+                      {row.GenreItem.map(
+                        (
+                          {
+                            genreId,
+                          }: { genreId: { name: string } },
+                          index: number
+                        ) => (
+                          <p
+                            key={`sing_${row.id}_${index}`}
+                          >
+                            {genreId.name +
+                              (index !==
+                              row.GenreItem.length - 1
+                                ? ' . '
+                                : '')}
+                          </p>
+                        )
+                      )}
+                    </div>
+                  </span>
+                </section>
+              </td>
 
-          <td>
-            <section className='w-fit cursor-pointer flex items-center text-light_purple text-4xl'>
-              <MdPlayCircleFilled />
-            </section>
-          </td>
-          <td>
-            <section className='w-fit cursor-pointer flex items-center text-gray-600 text-lg'>
-              <MdMoreVert />
-            </section>
-          </td>
-        </tr>
+              <td className='w-fit'>
+                {/* phase 3 : refactor button to a better looking one */}
+                <section className='cursor-pointer flex items-center justify-center text-light_purple text-4xl'>
+                  <MdPlayCircleFilled />
+                </section>
+              </td>
+              <td className='w-fit'>
+                <section
+                  onClick={() => setOpen(!open)}
+                  className='cursor-pointer flex items-center justify-center text-gray-600 text-lg'
+                >
+                  <MdMoreVert />
+                </section>
+                <TooltipDropdown open={open} />
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

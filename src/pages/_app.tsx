@@ -7,8 +7,7 @@ import superjson from 'superjson';
 import { ToastContainer } from 'react-toastify';
 
 import type { AppRouter } from '../server/router';
-import 'styles/globals.css';
-import 'styles/alert.css';
+import 'styles/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken } from 'utils/storage';
 

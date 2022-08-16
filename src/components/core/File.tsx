@@ -21,8 +21,12 @@ export const FileDrop = ({
   accessor,
 }: Props) => {
   // phase 3 custom hook
-  const { values, setFieldValue, isSubmitting }: any =
-    useFormikContext();
+  const {
+    values,
+    setFieldValue,
+    isSubmitting,
+    initialValues,
+  }: any = useFormikContext();
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
@@ -80,7 +84,7 @@ export const FileDrop = ({
     deleter(value)
       .then((data: any) => {
         setIsFinished(false);
-        setFieldValue(name, null);
+        setFieldValue(name, initialValues[name]);
         postSuccess(data.message);
       })
       .catch((err: any) => {

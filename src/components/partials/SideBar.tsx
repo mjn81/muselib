@@ -5,8 +5,8 @@ export const AppSideBar = ({
 }: PropsWithChildren) => {
   return (
     <section className='flex space-x-2 h-full'>
-      <div className='flex-grow '></div>
-      <aside className='w-[400px] '>{children}</aside>
+      <div className='flex-grow'></div>
+      <aside className='w-[400px]'>{children}</aside>
     </section>
   );
 };
