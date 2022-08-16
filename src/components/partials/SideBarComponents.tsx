@@ -9,6 +9,7 @@ type Props = {
     name: string;
   }[];
 };
+
 export const TopArtSideBar = ({ singers }: Props) => {
   return (
     <section className='space-y-5'>

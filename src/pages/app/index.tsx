@@ -1,17 +1,13 @@
-import { AppLayout } from 'layouts';
 import { NextPage } from 'next';
-import { TopArtSideBar } from 'components';
+import { AppSideBar, TopArtSideBar } from 'components';
+import { AppLayout } from 'layouts';
 import { MockSingers } from 'mock';
-
 const App: NextPage = () => {
   return (
     <AppLayout title='home'>
-      <section className='flex space-x-2 h-full'>
-        <div className='flex-grow '></div>
-        <aside className='w-[350px] '>
-          <TopArtSideBar singers={MockSingers} />
-        </aside>
-      </section>
+      <AppSideBar>
+        <TopArtSideBar singers={MockSingers} />
+      </AppSideBar>
     </AppLayout>
   );
 };

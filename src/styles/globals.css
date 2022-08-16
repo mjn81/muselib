@@ -34,14 +34,10 @@
   box-shadow: 0 0 4rem rgba(255, 255, 255, 0.4);
 }
 
-.top-art:hover {
-  @apply bg-light_purple;
-}
-
 .top-art:hover h5,
 .top-art:hover h4,
 .top-art:hover p {
-  @apply text-white transition-all;
+  @apply text-light_purple transition-all;
 }
 
 .top-art-image {
