@@ -9,6 +9,7 @@
     "lint": "next lint",
     "connect": "pscale connect muselib --port 43127",
     "studio": "prisma studio",
+    "migrate": "prisma db push",
     "postinstall": "prisma generate",
     "format": "prettier --write ."
   },
