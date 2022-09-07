@@ -1,10 +1,18 @@
-import axios from 'axios';
+import Axios from 'axios';
 import { MESSAGES } from 'constants/index';
 import { getEnv } from 'utils/env';
+
+const axios = Axios.create();
+axios.interceptors.request.use((config) => {
+  console.log(config);
+
+  return config;
+});
 
 export const uploadFile = async (
   url: string,
   token: string,
+  origin: string,
   data: FormData,
   setProgress: (progress: number) => void
 ) => {
@@ -17,6 +25,7 @@ export const uploadFile = async (
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: token ?? '',
+      'Access-Control-Allow-Origin': origin,
     },
   });
   if (response.status === 200) {

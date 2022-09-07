@@ -87,6 +87,7 @@ export const CREATE_MUSIC_FIELDS = [
       return uploadFile(
         process.env.NEXT_PUBLIC_MJOLNIR_URL ?? '',
         process.env.NEXT_PUBLIC_MJOLNIR_TOKEN ?? '',
+        window.location.origin,
         formData,
         setProgress
       );
