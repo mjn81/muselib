@@ -12,7 +12,6 @@ axios.interceptors.request.use((config) => {
 export const uploadFile = async (
   url: string,
   token: string,
-  origin: string,
   data: FormData,
   setProgress: (progress: number) => void
 ) => {
@@ -25,7 +24,6 @@ export const uploadFile = async (
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: token ?? '',
-      'Access-Control-Allow-Origin': origin,
     },
   });
   if (response.status === 200) {

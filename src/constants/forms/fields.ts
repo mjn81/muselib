@@ -85,9 +85,8 @@ export const CREATE_MUSIC_FIELDS = [
         process.env.NEXT_PUBLIC_MJOLNIR_CATEGORY_MUSIC ?? ''
       );
       return uploadFile(
-        process.env.NEXT_PUBLIC_MJOLNIR_URL ?? '',
+        `${process.env.NEXT_PUBLIC_MJOLNIR_URL}/file`,
         process.env.NEXT_PUBLIC_MJOLNIR_TOKEN ?? '',
-        window.location.origin,
         formData,
         setProgress
       );

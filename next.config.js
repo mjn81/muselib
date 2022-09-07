@@ -4,7 +4,6 @@ const nextConfig = {
   images: {
     domains: ['ui-avatars.com', 'via.placeholder.com'],
   },
-  configOrigin: 'default',
 }
 
 module.exports = nextConfig
