@@ -10,10 +10,11 @@ import type { AppRouter } from '../server/router';
 import 'styles/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken } from 'utils/storage';
+import { MusicProvider } from 'context';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <>
+    <MusicProvider>
       <Component {...pageProps} />
       <ToastContainer
         position='top-right'
@@ -24,7 +25,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         closeOnClick
         pauseOnHover
       />
-    </>
+    </MusicProvider>
   );
 };
 
