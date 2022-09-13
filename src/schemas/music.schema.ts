@@ -4,7 +4,6 @@ const BaseMusicSchema = z.object({
   title: z.string(),
   year: z.date(),
   musicLink: z.string(),
-  length: z.string().regex(/^\d{2}:\d{2}:\d{2}$/),
 });
 
 export const CreateMusicInput = z

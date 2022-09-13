@@ -106,8 +106,6 @@ const FieldGenerator = ({
           fetcher={others.fetcher}
           deleter={others.deleter}
           accessor={others.accessor}
-          extraDataAccessor={others.extraDataAccessor}
-          extraDataFieldName={others.extraDataFieldName}
           {...others}
         />
       );

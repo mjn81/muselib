@@ -12,14 +12,8 @@ export const musicRouter = createRouter()
   .mutation('create', {
     input: CreateMusicInput,
     resolve: async ({ input, ctx }) => {
-      const {
-        title,
-        year,
-        singers,
-        musicLink,
-        genres,
-        length,
-      } = input;
+      const { title, year, singers, musicLink, genres } =
+        input;
       const user = await roleBaseAuth(
         ctx.user,
         ctx.prisma,
@@ -30,7 +24,6 @@ export const musicRouter = createRouter()
           title: title,
           year: year,
           musicLink: musicLink,
-          length: length,
           GenreItem: {
             createMany: {
               data: genres.map(({ id }) => ({

@@ -99,16 +99,6 @@ export const CREATE_MUSIC_FIELDS = [
     },
     name: 'musicLink',
     accessor: ({ data }: any) => data.id,
-    extraDataFieldName: 'length',
-    extraDataAccessor: (file: File) => {
-      console.log(file);
-      return file;
-    },
-  },
-  {
-    fieldType: FormFieldTypes.input,
-    name: 'length',
-    type: 'hidden',
   },
   {
     fieldType: FormFieldTypes.date,

@@ -8,3 +8,4 @@ export * from './Select';
 export * from './Date';
 export * from './File';
 export * from './Progress';
+export * from './Range';
