@@ -41,6 +41,7 @@ export const CreateMusicForms = () => {
       title: data.title,
       year: data.year,
       musicLink: data.musicLink,
+      length: data.length,
       genres: genres,
       singers: singers,
     }).finally(() => {

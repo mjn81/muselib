@@ -9,7 +9,7 @@ export const reducer = (
   action: IMusicAction
 ) => {
   switch (action.type) {
-    case MUSIC_ACTIONS.PLAY:
+    case MUSIC_ACTIONS.START:
       return {
         ...state,
         playing: true,
@@ -20,6 +20,12 @@ export const reducer = (
         ...state,
         playing: false,
       };
+    case MUSIC_ACTIONS.PLAY:
+      return {
+        ...state,
+        playing: true,
+      };
+
     default:
       return state;
   }

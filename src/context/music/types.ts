@@ -2,11 +2,14 @@ export interface IMusic {
   id: string;
   title: string;
   link: string;
+  year: Date;
+  singers: string[];
+  genres: string[];
 }
 
 export interface IMusicState {
   playing: boolean;
-  currentTrack: IMusic | null;
+  currentTrack: IMusic;
 }
 
 export interface IMusicContext {
@@ -16,10 +19,11 @@ export interface IMusicContext {
 
 export interface IMusicAction {
   type: string;
-  payload: IMusic;
+  payload?: IMusic;
 }
 
 export const MUSIC_ACTIONS = {
+  START: 'START',
   PLAY: 'PLAY',
   PAUSE: 'PAUSE',
 };

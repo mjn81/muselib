@@ -9,9 +9,14 @@ import { useFormikContext } from 'formik';
 
 type Props = {
   name: string;
-  fetcher?: any;
-  deleter?: any;
-  accessor?: string;
+  extraDataFieldName: string;
+  extraDataAccessor: (file: File) => any;
+  fetcher: (
+    file: File,
+    setProgress: (progress: number) => void
+  ) => Promise<any>;
+  deleter: (id: string) => Promise<any>;
+  accessor: (data: any) => any;
 };
 
 export const FileDrop = ({
@@ -19,6 +24,8 @@ export const FileDrop = ({
   fetcher,
   deleter,
   accessor,
+  extraDataFieldName,
+  extraDataAccessor,
 }: Props) => {
   // phase 3 custom hook
   const {
@@ -59,23 +66,29 @@ export const FileDrop = ({
           return;
         }
       }
-      const file = files[0];
-      setIsLoading(true);
-      fetcher(file, setProgress)
-        .then((data: any) => {
-          setIsFinished(true);
-          // phase 3 dynamic accessor
-          setFieldValue(name, data.data.id);
-          postSuccess(data.message);
-        })
-        .catch((err: any) => {
-          setProgress(0);
-          setIsError(true);
-          postError(err.message);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      const file = files[0] as File;
+      setFieldValue(
+        extraDataFieldName,
+        extraDataAccessor(file)
+      );
+      // setIsLoading(true);
+      // fetcher(file, setProgress)
+      //   .then((data: any) => {
+      //     setIsFinished(true);
+      //     // phase 3 dynamic accessor
+      //     setFieldValue(name, accessor(data));
+      //     // @ts-ignore
+      //     console.log(file.length);
+      //     postSuccess(data.message);
+      //   })
+      //   .catch((err: any) => {
+      //     setProgress(0);
+      //     setIsError(true);
+      //     postError(err.message);
+      //   })
+      //   .finally(() => {
+      //     setIsLoading(false);
+      //   });
     },
   });
 

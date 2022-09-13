@@ -76,7 +76,8 @@ type MusicProps = {
     onClick?: (e: any) => void;
     children: ReactNode;
   }[];
-  onPlay: (id: string) => void;
+  // fix this later
+  onPlay: (music: any) => void;
 };
 
 export const MusicTable = ({
@@ -170,7 +171,7 @@ export const MusicTable = ({
               <td className='w-fit'>
                 {/* phase 3 : refactor button to a better looking one */}
                 <section
-                  onClick={() => onPlay(row.id)}
+                  onClick={() => onPlay(row)}
                   className='cursor-pointer flex items-center justify-center text-light_purple text-4xl'
                 >
                   <MdPlayCircleFilled />

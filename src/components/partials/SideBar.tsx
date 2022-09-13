@@ -9,6 +9,7 @@ export const AppSideBar = ({
 }: PropsWithChildren) => {
   return (
     <aside className='flex flex-col space-x-2 h-full'>
+      {children}
       <MusicPlayer />
     </aside>
   );

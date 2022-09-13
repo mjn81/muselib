@@ -21,6 +21,7 @@ export const CREATE_MUSIC_INITIAL = {
   title: '',
   year: new Date(),
   musicLink: '',
+  length: '',
   genres: [],
   singers: [],
 };

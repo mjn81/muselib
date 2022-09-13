@@ -1,7 +1,11 @@
 import { AppSideBar, MusicTable } from 'components';
-import { MusicContext, MUSIC_ACTIONS } from 'context';
+import {
+  IMusic,
+  MusicContext,
+  MUSIC_ACTIONS,
+} from 'context';
 import { AppLayout } from 'layouts';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { postError } from 'utils/res';
 import { trpc } from 'utils/trpc';
 
@@ -26,31 +30,27 @@ const Musics = () => {
       },
     },
   ];
-  const [id, setId] = useState<string>('');
-  const { refetch } = trpc.useQuery(
-    ['music.getById', { id: id }],
-    {
-      onSuccess: ({ id, title, musicLink }) => {
-        dispatch({
-          type: MUSIC_ACTIONS.PLAY,
-          payload: {
-            id,
-            title,
-            link: musicLink,
-          },
-        });
+  // change later
+  const onPlay = (music: any) => {
+    dispatch({
+      type: MUSIC_ACTIONS.START,
+      payload: {
+        id: music.id,
+        singers: music.SingerItem.map(
+          ({ singer }: { singer: { name: string } }) =>
+            singer.name
+        ),
+        genres: music.GenreItem.map(
+          ({
+            genreId: genre,
+          }: {
+            genreId: { name: string };
+          }) => genre.name
+        ),
+        title: music.title,
+        link: music.musicLink,
+        year: music.year,
       },
-      enabled: false,
-    }
-  );
-
-  const onPlay = (id: string) => {
-    // use event.persist() to persist the event + write better possible solution
-    new Promise((resolve) => {
-      setId(id);
-      resolve(null);
-    }).then(() => {
-      refetch();
     });
   };
 

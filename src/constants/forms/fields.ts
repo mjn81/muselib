@@ -93,12 +93,22 @@ export const CREATE_MUSIC_FIELDS = [
     },
     deleter: (id: string) => {
       return deleteFile(
-        `${process.env.NEXT_PUBLIC_MJOLNIR_URL}/${id}`,
+        `${process.env.NEXT_PUBLIC_MJOLNIR_URL}/file/${id}`,
         process.env.NEXT_PUBLIC_MJOLNIR_TOKEN ?? ''
       );
     },
     name: 'musicLink',
-    accessor: 'data.id',
+    accessor: ({ data }: any) => data.id,
+    extraDataFieldName: 'length',
+    extraDataAccessor: (file: File) => {
+      console.log(file);
+      return file;
+    },
+  },
+  {
+    fieldType: FormFieldTypes.input,
+    name: 'length',
+    type: 'hidden',
   },
   {
     fieldType: FormFieldTypes.date,
